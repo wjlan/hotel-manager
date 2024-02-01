@@ -3,13 +3,10 @@ import "./Login.scss";
 import { Button, Form, Input } from "antd";
 
 export default function Login() {
+  // submit successfully
   const onFinish = (values) => {
     console.log('Success:', values);
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
     <div className="login">
       <div className="content">
@@ -21,20 +18,17 @@ export default function Login() {
           }}
           wrapperCol={{
             span: 18,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
+          }}      
           initialValues={{
-            remember: true,
+            loginId: '',
+            loginPwd: ''
           }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >    
           <Form.Item
             label="Username"
-            name="username"
+            name="loginId"
             rules={[
               {
                 required: true,
@@ -47,7 +41,7 @@ export default function Login() {
 
           <Form.Item
             label="Password"
-            name="password"
+            name="loginPwd"
             rules={[
               {
                 required: true,

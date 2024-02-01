@@ -67,7 +67,7 @@ export default function Login() {
             <Button type="primary" htmlType="submit">
               Login
             </Button>
-            <Button>Cancel</Button>
+            <Button style={{marginLeft:'10px'}}>Cancel</Button>
           </Form.Item>
         </Form>
 

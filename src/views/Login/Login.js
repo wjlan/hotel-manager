@@ -31,6 +31,10 @@ export default function Login() {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <Form.Item>
+            <h2>Hotel Management System</h2>
+          </Form.Item>
+          
           <Form.Item
             label="Username"
             name="username"

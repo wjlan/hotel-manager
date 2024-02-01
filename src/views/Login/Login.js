@@ -1,6 +1,7 @@
 import React from "react";
 import "./Login.scss";
 import { Button, Form, Input } from "antd";
+import MyNotification from "../../components/MyNotification/MyNotification";
 import {$login} from '../../api/adminApi'; 
 
 export default function Login() {
@@ -72,6 +73,7 @@ export default function Login() {
         </Form>
 
       </div>
+      <MyNotification></MyNotification>
     </div>
   );
 }

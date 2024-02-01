@@ -5,7 +5,7 @@ var instance = axios.create({
   timeout: 20000,
 });
 
-// Add request
+// Add request interceptors
 instance.interceptors.request.use(function (config) {
   return config;
 }, function (error) {
@@ -13,7 +13,7 @@ instance.interceptors.request.use(function (config) {
 });
 
 
-// Add response
+// Add response interceptors
 instance.interceptors.response.use(function (response) {
   return response;
 }, function (error) {  

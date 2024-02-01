@@ -1,11 +1,13 @@
 import React from "react";
 import "./Login.scss";
 import { Button, Form, Input } from "antd";
+import {$login} from '../../api/adminApi'; 
 
 export default function Login() {
   let [form] = Form.useForm()
   // submit successfully
   const onFinish = (values) => {
+    $login(values)
     console.log('Success:', values);
   };
   return (

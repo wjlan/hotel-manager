@@ -1,15 +1,28 @@
 import React from "react";
 import "./Login.scss";
-import { Button, Form, Input } from "antd";
-import MyNotification from "../../components/MyNotification/MyNotification";
+import { Button, Form, Input, notification } from "antd";
+// import MyNotification from "../../components/MyNotification/MyNotification";
 import {$login} from '../../api/adminApi'; 
-
 export default function Login() {
+  // notification 
+  const [api, contextHolder] = notification.useNotification();
+  // open notification
+  const openNotification = (type, description) => {
+    api[type]({
+      message: 'System notification',
+      description
+    });
+  };
+  // form
   let [form] = Form.useForm()
-  // submit successfully
-  const onFinish = (values) => {
-    $login(values)
-    console.log('Success:', values);
+  // submit callback function
+  const onFinish = async (values) => {
+    let {message, success} = await $login(values)
+    if(success) {
+      openNotification('success', message)
+    }else{
+      openNotification('error', message)
+    }
   };
   return (
     <div className="login">
@@ -73,7 +86,7 @@ export default function Login() {
         </Form>
 
       </div>
-      <MyNotification></MyNotification>
+      {contextHolder}      
     </div>
   );
 }

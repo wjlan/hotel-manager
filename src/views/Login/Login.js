@@ -17,10 +17,10 @@ export default function Login() {
         <Form
           name="basic"
           labelCol={{
-            span: 8,
+            span: 4,
           }}
           wrapperCol={{
-            span: 16,
+            span: 18,
           }}
           style={{
             maxWidth: 600,
@@ -60,7 +60,7 @@ export default function Login() {
 
           <Form.Item
             wrapperCol={{
-              offset: 8,
+              offset: 4,
               span: 16,
             }}
           >

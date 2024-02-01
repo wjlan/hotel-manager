@@ -9,7 +9,7 @@ export default function Login() {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-  
+
   return (
     <div className="login">
       <div className="content">
@@ -64,8 +64,9 @@ export default function Login() {
             }}
           >
             <Button type="primary" htmlType="submit">
-              Submit
+              Login
             </Button>
+            <Button>Cancel</Button>
           </Form.Item>
         </Form>
 

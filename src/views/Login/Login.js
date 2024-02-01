@@ -13,6 +13,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="content">
+      <h2>Hotel Management System</h2>
         <Form
           name="basic"
           labelCol={{
@@ -30,11 +31,7 @@ export default function Login() {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
-        >
-          <Form.Item>
-            <h2>Hotel Management System</h2>
-          </Form.Item>
-          
+        >    
           <Form.Item
             label="Username"
             name="username"

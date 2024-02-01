@@ -1,7 +1,8 @@
 import axios from "axios";
+import {baseURL} from '../config'
 
 var instance = axios.create({
-  baseURL: 'https://bingjs.com:8003/', 
+  baseURL,
   timeout: 20000,
 });
 

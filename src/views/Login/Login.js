@@ -3,6 +3,7 @@ import "./Login.scss";
 import { Button, Form, Input } from "antd";
 
 export default function Login() {
+  let [form] = Form.useForm()
   // submit successfully
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -13,6 +14,7 @@ export default function Login() {
       <h2>Hotel Management System</h2>
         <Form
           name="basic"
+          form={form}
           labelCol={{
             span: 4,
           }}
@@ -61,7 +63,9 @@ export default function Login() {
             <Button type="primary" htmlType="submit">
               Login
             </Button>
-            <Button style={{marginLeft:'10px'}}>Cancel</Button>
+            <Button onClick={()=>{
+              form.resetFields()
+            }} style={{marginLeft:'10px'}}>Cancel</Button>
           </Form.Item>
         </Form>
 

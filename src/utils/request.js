@@ -8,7 +8,9 @@ var instance = axios.create({
 
 // Add request interceptors
 instance.interceptors.request.use(function (config) {
-  config.headers.token = '123'
+  if(sessionStorage.getItem('token')){
+    config.headers.token = sessionStorage.getItem('token')
+  }
   console.log(config);
   return config;
 }, function (error) {

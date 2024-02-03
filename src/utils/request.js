@@ -8,6 +8,8 @@ var instance = axios.create({
 
 // Add request interceptors
 instance.interceptors.request.use(function (config) {
+  config.headers.token = '123'
+  console.log(config);
   return config;
 }, function (error) {
   return Promise.reject(error);

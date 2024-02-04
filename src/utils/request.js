@@ -11,12 +11,10 @@ instance.interceptors.request.use(function (config) {
   if(sessionStorage.getItem('token')){
     config.headers.token = sessionStorage.getItem('token')
   }
-  console.log(config);
   return config;
 }, function (error) {
   return Promise.reject(error);
 });
-
 
 // Add response interceptors
 instance.interceptors.response.use(function (response) {

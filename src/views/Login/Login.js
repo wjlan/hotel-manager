@@ -1,9 +1,12 @@
 import React, {useState} from "react";
+import { useNavigate  } from "react-router-dom";
 import "./Login.scss";
 import { Button, Form, Input} from "antd";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import {$login} from '../../api/adminApi'; 
 export default function Login() {
+  // navigate
+  let navigate = useNavigate()
   // notification box status
   let [notiMsg, setNotiMsg] = useState({type:'', description:''})
   // form
@@ -11,8 +14,11 @@ export default function Login() {
   // submit callback function
   const onFinish = async (values) => {
     let {message, success} = await $login(values)
+    // login validation
     if(success) {
       setNotiMsg({type:'success', description:message})
+      // directed to layout
+      navigate('/layout')
     }else{
       setNotiMsg({type:'error', description:message})
     }

@@ -34,20 +34,20 @@ export default function () {
     },
     {
       label: "Account",
-      key: "SubMenu",
+      key: "mine",
       icon: <SettingOutlined />,
       children: [
         {
-          key: "1",
+          key: "my",
           label: "Personal Information",
         },
         {
-          key: "2",
+          key: "pwd",
           label: "Password reset",
         },
         {
-          key: "3",
-          label: "Logout",
+          key: "exit",
+          label: "Exit",
         },
       ],
     },

@@ -52,6 +52,24 @@ export default function () {
       ],
     },
   ];
+  // Menu on the left
+  const items2 = [
+    {
+      key: "1",
+      icon: <UserOutlined />,
+      label: "Account Management",
+    },
+    {
+      key: "2",
+      icon: <VideoCameraOutlined />,
+      label: "Room Management",
+    },
+    {
+      key: "3",
+      icon: <UploadOutlined />,
+      label: "Client Management",
+    },
+  ];
   // side layout collapsed status
   const [collapsed, setCollapsed] = useState(false);
   return (
@@ -64,23 +82,7 @@ export default function () {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "Account Management",
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "Room Management",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "Client Management",
-            },
-          ]}
+          items={items2}
         />
       </Sider>
       <Layout className="right">

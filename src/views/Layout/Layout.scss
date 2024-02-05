@@ -12,6 +12,15 @@
     }
     .header{
         padding-left: 5px;
+        padding-right: 10px;
+        display: flex;
+        justify-content: space-between;
+        .menu{
+            padding: 0 10px;
+            background-color: #001529;
+            color: white;
+
+        }
         .trigger{
             padding: 0px;
             font-size: 18px;

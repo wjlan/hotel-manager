@@ -1,11 +1,11 @@
 // icon
 import {
+  HomeOutlined,
+  NotificationOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  AppstoreOutlined,
   MailOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
@@ -14,13 +14,14 @@ import React, { useState } from "react";
 const { Header, Sider, Content } = Layout;
 import "./Layout.scss";
 export default function () {
-  const [current, setCurrent] = useState("mail");
+  <HomeOutlined />
+  const [current, setCurrent] = useState('home');
   // Menu on the top
   const items = [
     {
       label: "Home",
       key: "home",
-      icon: <MailOutlined />,
+      icon: <HomeOutlined />,
     },
     {
       label: "Mail",
@@ -30,12 +31,12 @@ export default function () {
     {
       label: "Notion",
       key: "noti",
-      icon: <MailOutlined />,
+      icon: <NotificationOutlined/>,
     },
     {
       label: "Account",
       key: "mine",
-      icon: <SettingOutlined />,
+      icon: <UserOutlined />,
       children: [
         {
           key: "my",
@@ -90,10 +91,14 @@ export default function () {
     },
     {
       key: "3",
-      icon: <UploadOutlined />,
+      icon: <SettingOutlined />,
       label: "Client Management",
     },
   ];
+  // onClickMenu function
+  const onClickMenu = (e) => {
+    setCurrent(e.key)
+  }
   // side layout collapsed status
   const [collapsed, setCollapsed] = useState(false);
   return (
@@ -103,6 +108,7 @@ export default function () {
           {collapsed ? "Wanjun" : "Hotel Managerment System"}
         </div>
         <Menu
+          onclick={onClickMenu}
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -119,6 +125,7 @@ export default function () {
             }
           )}
           <Menu
+            onclick={onClickMenu}
             theme="dark"
             className="menu"
             selectedKeys={[current]}

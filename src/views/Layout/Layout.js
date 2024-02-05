@@ -11,10 +11,12 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 import "./Layout.scss";
 export default function () {
-  <HomeOutlined />
+  const navigate = useNavigate()
+  // initial menu icon
   const [current, setCurrent] = useState('home');
   // Menu on the top
   const items = [
@@ -98,6 +100,14 @@ export default function () {
   // onClickMenu function
   const onClickMenu = (e) => {
     setCurrent(e.key)
+    switch(e.key){
+      // if the submenu is exit, exit the system
+      case 'exit':
+        sessionStorage.clear()
+        localStorage.clear()
+        navigate('/')
+        break
+    }
   }
   // side layout collapsed status
   const [collapsed, setCollapsed] = useState(false);

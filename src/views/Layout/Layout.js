@@ -12,12 +12,17 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, Modal } from "antd";
 const { confirm } = Modal;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 import "./Layout.scss";
 export default function () {
   const navigate = useNavigate();
+  useEffect(()=>{
+    if(sessionStorage.getItem('token')){
+      navigate('/')
+    }
+  },[])
   // initial menu icon
   const [current, setCurrent] = useState("home");
   // Menu on the top

@@ -8,16 +8,18 @@ import {
   VideoCameraOutlined,
   MailOutlined,
   SettingOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Modal } from "antd";
+const { confirm } = Modal;
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 import "./Layout.scss";
 export default function () {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // initial menu icon
-  const [current, setCurrent] = useState('home');
+  const [current, setCurrent] = useState("home");
   // Menu on the top
   const items = [
     {
@@ -33,7 +35,7 @@ export default function () {
     {
       label: "Notion",
       key: "noti",
-      icon: <NotificationOutlined/>,
+      icon: <NotificationOutlined />,
     },
     {
       label: "Account",
@@ -99,16 +101,27 @@ export default function () {
   ];
   // onClickMenu function
   const onClickMenu = (e) => {
-    setCurrent(e.key)
-    switch(e.key){
+    setCurrent(e.key);
+    switch (e.key) {
       // if the submenu is exit, exit the system
-      case 'exit':
-        sessionStorage.clear()
-        localStorage.clear()
-        navigate('/')
+      case "exit":
+        confirm({
+          title: "System Notification",
+          icon: <ExclamationCircleFilled />,
+          content: "Are you sure to exit?",
+          okText: 'Confirm',
+          cancelText: 'Cancel',
+          onOk() {
+            // clear session
+            sessionStorage.clear();
+            localStorage.clear();
+            // switch to the login page
+            navigate("/");
+          }
+        });
         break
     }
-  }
+  };
   // side layout collapsed status
   const [collapsed, setCollapsed] = useState(false);
   return (

@@ -1,3 +1,17 @@
+.layout{
+    width: 100vw;
+    height: 100vh;
+    .logo{
+        height: 32px;
+        margin: 16px;
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 18px;
+        text-align: center;
+        line-height: 30px;
+    }
+}
+
 #components-Layout-demo-custom-trigger .trigger {
     padding: 0 24px;
     font-size: 18px;
@@ -8,10 +22,4 @@
 
 #components-Layout-demo-custom-trigger .trigger:hover {
     color: #1890ff;
-}
-
-#components-Layout-demo-custom-trigger .logo {
-    height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 00.3s)
 }

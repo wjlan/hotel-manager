@@ -15,9 +15,9 @@ export default function() {
     token: { colorBgContainer },
   } = theme.useToken();
   return (
-    <Layout>
+    <Layout className='layout'>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="logo">{collapsed? 'Wanjun': 'Hotel Managerment System'}</div>
         <Menu
           theme="dark"
           mode="inline"
@@ -41,7 +41,7 @@ export default function() {
           ]}
         />
       </Sider>
-      <Layout>
+      <Layout className='site-layout'>
         <Header
           style={{
             padding: 0,

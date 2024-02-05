@@ -58,11 +58,35 @@ export default function () {
       key: "1",
       icon: <UserOutlined />,
       label: "Account Management",
+      children: [
+        {
+          key: "1-1",
+          label: "Role Management",
+        },
+        {
+          key: "1-2",
+          label: "User Management",
+        },
+      ],
     },
     {
       key: "2",
       icon: <VideoCameraOutlined />,
       label: "Room Management",
+      childre: [
+        {
+          key: "2-1",
+          label: "Room Type Management",
+        },
+        {
+          key: "2-2",
+          label: "Room Unit Management",
+        },
+        {
+          key: "2-3",
+          label: "Operational Statistics",
+        },
+      ],
     },
     {
       key: "3",

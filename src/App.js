@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 // import components Login and Layout
 import Login from "./views/Login/Login";
-import Layout from "./views/Layout/layout";
+import Layout from "./views/Layout/Layout";
 function App() {
   return (
     <BrowserRouter>

@@ -19,8 +19,8 @@ import "./Layout.scss";
 export default function () {
   const navigate = useNavigate();
   useEffect(()=>{
-    if(sessionStorage.getItem('token')){
-      navigate('/')
+    if(!sessionStorage.getItem("token")){
+      navigate("/")
     }
   },[])
   // initial menu icon
@@ -139,7 +139,7 @@ export default function () {
           onclick={onClickMenu}
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          SelectedKeys={[current]}
           items={items2}
         />
       </Sider>

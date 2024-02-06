@@ -58,10 +58,10 @@ export default function Role() {
         <Form
     name="basic"
     labelCol={{
-      span: 8,
+      span: 5,
     }}
     wrapperCol={{
-      span: 16,
+      span: 18,
     }}
     style={{
       maxWidth: 600,
@@ -74,11 +74,11 @@ export default function Role() {
   >
     <Form.Item
       label="Role Name"
-      name="username"
+      name="roleName"
       rules={[
         {
           required: true,
-          message: 'Please input your username!',
+          message: 'Please input role name',
         },
       ]}
     >
@@ -86,12 +86,15 @@ export default function Role() {
     </Form.Item>
     <Form.Item
       wrapperCol={{
-        offset: 8,
+        offset: 5,
         span: 16,
       }}
     >
       <Button type="primary" htmlType="submit">
-        Submit
+        Add
+      </Button>
+      <Button style={{marginLeft:'10px'}}>
+        Cancel
       </Button>
     </Form.Item>
   </Form>

@@ -13,16 +13,16 @@ import {
 import { Layout, Menu, Modal } from "antd";
 const { confirm } = Modal;
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 import "./Layout.scss";
 export default function () {
   const navigate = useNavigate();
-  useEffect(()=>{
-    if(sessionStorage.getItem("token")){
-      navigate("/")
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      navigate("/");
     }
-  },[])
+  }, []);
   // initial menu icon
   const [current, setCurrent] = useState("home");
   // Menu on the top
@@ -70,11 +70,11 @@ export default function () {
       label: "Account Management",
       children: [
         {
-          key: "1-1",
+          key: "role",
           label: "Role Management",
         },
         {
-          key: "1-2",
+          key: "user",
           label: "User Management",
         },
       ],
@@ -85,21 +85,21 @@ export default function () {
       label: "Room Management",
       childre: [
         {
-          key: "2-1",
+          key: "type",
           label: "Room Type Management",
         },
         {
-          key: "2-2",
+          key: "room",
           label: "Room Unit Management",
         },
         {
-          key: "2-3",
+          key: "total",
           label: "Operational Statistics",
         },
       ],
     },
     {
-      key: "3",
+      key: "client",
       icon: <SettingOutlined />,
       label: "Client Management",
     },
@@ -108,8 +108,12 @@ export default function () {
   const onClickMenu = (e) => {
     setCurrent(e.key);
     switch (e.key) {
+      // Role management
+      case "role":
+        navigate("/layout/role");
+        break;
       // if the submenu is exit, exit the system
-      case "exit":
+      case 'exit':
         confirm({
           title: "System Notification",
           icon: <ExclamationCircleFilled />,
@@ -139,7 +143,7 @@ export default function () {
           onclick={onClickMenu}
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          SelectedKeys={[current]}
           items={items2}
         />
       </Sider>
@@ -161,7 +165,9 @@ export default function () {
             items={items}
           />
         </Header>
-        <Content className="content">Content</Content>
+        <Content className="content">
+          <Outlet></Outlet>
+        </Content>
       </Layout>
     </Layout>
   );

@@ -19,7 +19,7 @@ import "./Layout.scss";
 export default function () {
   const navigate = useNavigate();
   useEffect(()=>{
-    if(!sessionStorage.getItem("token")){
+    if(sessionStorage.getItem("token")){
       navigate("/")
     }
   },[])
@@ -133,13 +133,13 @@ export default function () {
     <Layout className="layout">
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
-          {collapsed ? "Wanjun" : "Hotel Managerment System"}
+          {collapsed ? "WJ" : "Hotel Managerment System"}
         </div>
         <Menu
           onclick={onClickMenu}
           theme="dark"
           mode="inline"
-          SelectedKeys={[current]}
+          defaultSelectedKeys={["1"]}
           items={items2}
         />
       </Sider>

@@ -1,3 +1,3 @@
 // api address
-export const baseURL = 'https://bingjs.com:8003/'
+export const baseURL = 'http://119.45.221.185:8003/'
 

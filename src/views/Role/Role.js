@@ -29,7 +29,7 @@ export default function Role() {
   const columns = [
     {
       title: "Role Id",
-      dataIndex: "roldId",
+      dataIndex: "roleId",
     },
     {
       title: "Role Name",

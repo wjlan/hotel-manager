@@ -1,11 +1,14 @@
-import React, {useState, useEffect} from 'react'
-import {Table} from 'antd'
-import {$list} from '../../api/adminApi'
+import React, { useState, useEffect } from "react";
+import { Table, Button } from "antd";
+import { $list } from "../../api/adminApi";
+import AddAdmin from "./AddAdmin";
 
 export default function Admin() {
+  // check drawer open or not
+  const [open, setOpen] = useState(false);
   // adminList data
   let [adminList, setAdminList] = useState([]);
-  // table 
+  // table
   const columns = [
     {
       title: "Admin Id",
@@ -70,8 +73,8 @@ export default function Admin() {
   ];
   // Load admin list
   const loadlist = () => {
-    $list().then(({data, count}) => {
-      console.log(data)
+    $list().then(({ data, count }) => {
+      // console.log(data);
       data = data.map((r) => {
         return {
           ...r,
@@ -81,12 +84,23 @@ export default function Admin() {
       setAdminList(data);
     });
   };
-  useEffect(()=>{
+  useEffect(() => {
     loadlist();
   }, []);
   return (
     <>
-    <Table size="small" dataSource={adminList} columns={columns} />
+      <div className="search">
+        <Button
+          size="small"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Add
+        </Button>
+      </div>
+      <Table size="small" dataSource={adminList} columns={columns} />
+      <AddAdmin open={open} setOpen={setOpen} />
     </>
-  )
+  );
 }

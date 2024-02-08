@@ -40,7 +40,7 @@ export default function Role() {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
-        <Button size='small'>Cancel</Button>
+        <Button danger size='small'>Cancel</Button>
       ),
     },
   ];

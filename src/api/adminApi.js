@@ -11,3 +11,9 @@ export const $login = async (params) => {
   }
   return data
 }
+
+// Admin account list
+export const $list = async (params)=>{
+  let {data} = await axios.get('Admin/List',{params})
+  return data
+}

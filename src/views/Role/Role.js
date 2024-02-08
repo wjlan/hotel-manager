@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Drawer, Form, Input } from "antd";
-import { $list } from "../../api/RoleApi";
+import { Table, Button } from "antd";
+import { $list, $del } from "../../api/RoleApi";
+import MyNotification from "../../components/MyNotification/MyNotification";
 import AddRole from "./AddRole";
 
-export default function Role() {
-  
+export default function Role() { 
+  // notification box status
+  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // check drawer open or not
   const [open, setOpen] = useState(false);
-  
   // roleList data
   let [roleList, setRoleList] = useState([]);
   useEffect(() => {
@@ -25,6 +26,17 @@ export default function Role() {
       setRoleList(data);
     });
   };
+  // del role function
+  const del = (roleId)=>{
+    $del({roleId}).then(({success, message})=>{
+      if (success){
+        setNotiMsg({ type: "success", description: message });
+        loadlist()
+      }else{
+        setNotiMsg({ type: "error", description: message });
+      }
+    })
+  }
   const columns = [
     {
       title: "Role Id",
@@ -39,8 +51,8 @@ export default function Role() {
     {
       title: 'Action',
       key: 'action',
-      render: (_, record) => (
-        <Button danger size='small'>Cancel</Button>
+      render: (ret) => (
+        <Button danger size='small' onClick={()=>{del(ret.roleId)}}>Cancel</Button>
       ),
     },
   ];
@@ -58,6 +70,7 @@ export default function Role() {
       </div>
       <Table size="small" dataSource={roleList} columns={columns} />
       <AddRole open={open} setOpen={setOpen} loadlist={loadlist}/>
+      <MyNotification notiMsg={notiMsg} />  
     </>
   );
 }

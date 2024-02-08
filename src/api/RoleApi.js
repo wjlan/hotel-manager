@@ -11,3 +11,9 @@ export const $add = async (params)=>{
   let{data} = await axios.post('Role/Add', params)
   return data
 }
+
+// Delete role
+export const $del = async (params)=>{
+  let{data} = await axios.post('Role/Delete', params)
+  return data
+}

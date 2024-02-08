@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Table} from 'antd'
+import {$list} from '../../api/adminApi'
 
 export default function Admin() {
   // adminList data
   let [adminList, setAdminList] = useState([]);
+  // table 
   const columns = [
     {
       title: "Admin Id",
@@ -66,7 +68,22 @@ export default function Admin() {
     //   ),
     // },
   ];
-
+  // Load admin list
+  const loadlist = () => {
+    $list().then(({data, count}) => {
+      console.log(data)
+      data = data.map((r) => {
+        return {
+          ...r,
+          key: r.loginId,
+        };
+      });
+      setAdminList(data);
+    });
+  };
+  useEffect(()=>{
+    loadlist();
+  }, []);
   return (
     <>
     <Table size="small" dataSource={adminList} columns={columns} />

@@ -29,10 +29,19 @@ export default function Role() {
     {
       title: "Role Id",
       dataIndex: "roleId",
+      width: '100px'
     },
     {
       title: "Role Name",
       dataIndex: "roleName",
+      width: '200px'
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, record) => (
+        <Button size='small'>Cancel</Button>
+      ),
     },
   ];
   return (

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Drawer, Form, Input } from "antd";
-import { $list } from "../../api/RoleApi";
+import { $list, $add } from "../../api/RoleApi";
+import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function Role() {
+  // notification box status
+  let [notiMsg, setNotiMsg] = useState({type:'', description:''})
   // check drawer open or not
   const [open, setOpen] = useState(false);
   // close drawer function
@@ -11,7 +14,13 @@ export default function Role() {
   };
   // form submit function
   const onFinish = (values) => {
-    console.log('Success:', values);
+    $add(values).then(({success,message})=>{
+      if(success){
+        setNotiMsg({type:'success', description:message})
+      }else{
+        setNotiMsg({type:'error', description:message})
+      }
+    })
   };
   // roleList data
   let [roleList, setRoleList] = useState([]);
@@ -99,6 +108,7 @@ export default function Role() {
     </Form.Item>
   </Form>
       </Drawer>
+      <MyNotification notiMsg={notiMsg} />  
     </>
   );
 }

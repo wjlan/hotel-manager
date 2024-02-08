@@ -13,6 +13,7 @@ export default function Login() {
     navigate('/layout')
     }
   },[]) 
+  
   // notification box status
   let [notiMsg, setNotiMsg] = useState({type:'', description:''})
   // form

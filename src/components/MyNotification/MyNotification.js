@@ -8,7 +8,9 @@ export default function MyNotification({notiMsg}) {
     if(notiMsg.type){
       api[notiMsg.type]({
         message: 'System notification',
-        description: notiMsg.description
+        description: notiMsg.description,
+        duration:2,
+        placement:'bottomRight'
       })
     }
   }, [notiMsg])

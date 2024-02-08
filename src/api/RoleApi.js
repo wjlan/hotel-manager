@@ -6,6 +6,12 @@ export const $list = async () =>{
   return data
 }
 
+// Get single one role 
+export const $getOne = async(params)=>{
+  let {data} = await axios.get('Role/GetOne',{params})
+  return data
+}
+
 // Add role
 export const $add = async (params)=>{
   let{data} = await axios.post('Role/Add', params)
@@ -18,8 +24,10 @@ export const $del = async (params)=>{
   return data
 }
 
-// Get single one role 
-export const $getOne = async(params)=>{
-  let {data} = await axios.get('Role/GetOne',{params})
+// 修改角色
+export const $update = async (params)=>{
+  let {data} = await axios.post('Role/Update',params)
   return data
 }
+
+

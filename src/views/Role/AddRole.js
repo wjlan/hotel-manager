@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
-import { $add, $getOne } from "../../api/RoleApi";
+import { $add, $getOne, $update } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function AddRole({
@@ -29,15 +29,26 @@ export default function AddRole({
   };
   // form submit function
   const onFinish = (values) => {
-    $add(values).then(({ success, message }) => {
-      if (success) {
-        setNotiMsg({ type: "success", description: message });
-        clear(); // clear form
-        loadlist(); // load role list
-      } else {
-        setNotiMsg({ type: "error", description: message });
-      }
-    });
+    if(roleId){
+      $update(values).then(({success,message})=>{
+        if(success){
+          setNotiMsg({type:'success',description:message})
+          loadlist()  // load role list
+        }else{
+          setNotiMsg({type:'error',description:message})
+        }
+      })
+    }else{
+      $add(values).then(({success, message}) => {
+        if (success) {
+          setNotiMsg({ type: "success", description: message });
+          clear(); // clear form
+          loadlist(); // load role list
+        } else {
+          setNotiMsg({type: "error", description: message});
+        }
+      });
+    } 
   };
   // form clearance function
   const clear = () => {
@@ -64,12 +75,16 @@ export default function AddRole({
           style={{
             maxWidth: 600,
           }}
-          initialValues={{
-            remember: true,
-          }}
           onFinish={onFinish}
           autoComplete="off"
         >
+          <Form.Item
+            label="Role Id"
+            name="roleId"
+            hidden 
+          >
+            <Input />
+          </Form.Item>
           <Form.Item
             label="Role Name"
             name="roleName"

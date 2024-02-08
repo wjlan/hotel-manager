@@ -67,7 +67,7 @@ export default function Role() {
               edit(ret.roleId);
             }}
           >
-            编辑
+            Edit
           </Button>
           <Popconfirm
             title="Notion"

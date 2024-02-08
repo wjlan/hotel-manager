@@ -74,8 +74,8 @@ export default function () {
           label: "Role Management",
         },
         {
-          key: "user",
-          label: "User Management",
+          key: "admin",
+          label: "Admin Management",
         },
       ],
     },
@@ -112,6 +112,10 @@ export default function () {
       case "role":
         navigate("/layout/role");
         break;
+      // Admin mamagement
+      case "admin":
+        navigate("/layout/admin");
+        break;
       // if the submenu is exit, exit the system
       case 'exit':
         confirm({
@@ -140,10 +144,10 @@ export default function () {
           {collapsed ? "WJ" : "Hotel Managerment System"}
         </div>
         <Menu
-          onclick={onClickMenu}
+          onClick={onClickMenu}
           theme="dark"
           mode="inline"
-          SelectedKeys={[current]}
+          selectedKeys={[current]}
           items={items2}
         />
       </Sider>

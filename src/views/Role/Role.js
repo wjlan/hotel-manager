@@ -5,6 +5,8 @@ import MyNotification from "../../components/MyNotification/MyNotification";
 import AddRole from "./AddRole";
 
 export default function Role() {
+  // roleId editing status
+  let [roleId,setRoleId] = useState(0)
   // notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // check drawer open or not
@@ -26,6 +28,11 @@ export default function Role() {
       setRoleList(data);
     });
   };
+  // edit role function
+  const edit = (roleId)=>{
+    setOpen(true)   // open drawer
+    setRoleId(roleId)  // set roldId to be editing status
+  }
   // del role function
   const del = (roleId) => {
     $del({ roleId }).then(({ success, message }) => {
@@ -52,19 +59,30 @@ export default function Role() {
       title: "Action",
       key: "action",
       render: (ret) => (
-        <Popconfirm
-          title="Notion"
-          description="Are you sure to delete"
-          onConfirm={() => {
-            del(ret.roleId);
-          }}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button style={{ marginLeft: "5px" }} danger size="small">
-            Cancel
+        <>
+          <Button
+            size="small"
+            style={{ borderColor: "orange", color: "orange" }}
+            onClick={() => {
+              edit(ret.roleId);
+            }}
+          >
+            编辑
           </Button>
-        </Popconfirm>
+          <Popconfirm
+            title="Notion"
+            description="Are you sure to delete"
+            onConfirm={() => {
+              del(ret.roleId);
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button style={{ marginLeft: "5px" }} danger size="small">
+              Cancel
+            </Button>
+          </Popconfirm>
+        </>
       ),
     },
   ];
@@ -81,7 +99,7 @@ export default function Role() {
         </Button>
       </div>
       <Table size="small" dataSource={roleList} columns={columns} />
-      <AddRole open={open} setOpen={setOpen} loadlist={loadlist} />
+      <AddRole open={open} setOpen={setOpen} loadlist={loadlist} roleId={roleId} setRoleId={setRoleId}/>
       <MyNotification notiMsg={notiMsg} />
     </>
   );

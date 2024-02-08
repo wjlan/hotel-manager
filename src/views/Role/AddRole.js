@@ -1,17 +1,31 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
-import { $add } from "../../api/RoleApi";
+import { $add, $getOne } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
-export default function AddRole({open, setOpen, loadlist}) {
+export default function AddRole({
+  open,
+  setOpen,
+  loadlist,
+  roleId,
+  setRoleId,
+}) {
   // create a form object
   let [form] = Form.useForm();
   // notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
+  useEffect(() => {
+    if (roleId !== 0) {
+      $getOne({ roleId }).then((data) => {
+        form.setFieldsValue(data);
+      });
+    }
+  }, [roleId]);
   // close drawer function
   const onClose = () => {
-    clear();
-    setOpen(false);
+    clear(); // clear form
+    setRoleId(0); // Cancel editing status
+    setOpen(false); // close drawer
   };
   // form submit function
   const onFinish = (values) => {
@@ -31,7 +45,13 @@ export default function AddRole({open, setOpen, loadlist}) {
   };
   return (
     <>
-    <Drawer title="Add Role" width={500} onClose={onClose} open={open}>
+      <Drawer
+        title={roleId?'Edit Role':'Add Role'}
+        width={500}
+        placement="right"
+        onClose={onClose}
+        open={open}
+      >
         <Form
           name="basic"
           form={form}
@@ -69,7 +89,7 @@ export default function AddRole({open, setOpen, loadlist}) {
             }}
           >
             <Button type="primary" htmlType="submit">
-              Add
+              {roleId?'Edit':'Add'}
             </Button>
             <Button onClick={clear} style={{ marginLeft: "10px" }}>
               Cancel
@@ -77,7 +97,7 @@ export default function AddRole({open, setOpen, loadlist}) {
           </Form.Item>
         </Form>
       </Drawer>
-      <MyNotification notiMsg={notiMsg} />   
+      <MyNotification notiMsg={notiMsg} />
     </>
-  )
+  );
 }

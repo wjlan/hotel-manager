@@ -17,3 +17,9 @@ export const $del = async (params)=>{
   let{data} = await axios.post('Role/Delete', params)
   return data
 }
+
+// Get single one role 
+export const $getOne = async(params)=>{
+  let {data} = await axios.get('Role/GetOne',{params})
+  return data
+}

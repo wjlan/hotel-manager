@@ -4,32 +4,40 @@ import { $list, $add } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function Role() {
+  // create a form object
+  let [form] = Form.useForm();
   // notification box status
-  let [notiMsg, setNotiMsg] = useState({type:'', description:''})
+  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // check drawer open or not
   const [open, setOpen] = useState(false);
   // close drawer function
   const onClose = () => {
+    clear();
     setOpen(false);
   };
   // form submit function
   const onFinish = (values) => {
-    $add(values).then(({success,message})=>{
-      if(success){
-        setNotiMsg({type:'success', description:message})
-        loadlist()
-      }else{
-        setNotiMsg({type:'error', description:message})
+    $add(values).then(({ success, message }) => {
+      if (success) {
+        setNotiMsg({ type: "success", description: message });
+        clear(); // clear form
+        loadlist(); // load role list
+      } else {
+        setNotiMsg({ type: "error", description: message });
       }
-    })
+    });
+  };
+  // form clearance function
+  const clear = () => {
+    form.setFieldsValue({ roleName: "" });
   };
   // roleList data
   let [roleList, setRoleList] = useState([]);
   useEffect(() => {
-    loadlist()
+    loadlist();
   }, []);
   // Load role list
-  const loadlist=()=>{
+  const loadlist = () => {
     $list().then((data) => {
       data = data.map((r) => {
         return {
@@ -38,8 +46,8 @@ export default function Role() {
         };
       });
       setRoleList(data);
-  });
-}
+    });
+  };
   const columns = [
     {
       title: "Role Id",
@@ -63,57 +71,53 @@ export default function Role() {
         </Button>
       </div>
       <Table size="small" dataSource={roleList} columns={columns} />
-      <Drawer
-        title="Add Role"
-        width={500}
-        onClose={onClose}
-        open={open}
-      >
+      <Drawer title="Add Role" width={500} onClose={onClose} open={open}>
         <Form
-    name="basic"
-    labelCol={{
-      span: 5,
-    }}
-    wrapperCol={{
-      span: 18,
-    }}
-    style={{
-      maxWidth: 600,
-    }}
-    initialValues={{
-      remember: true,
-    }}
-    onFinish={onFinish}
-    autoComplete="off"
-  >
-    <Form.Item
-      label="Role Name"
-      name="roleName"
-      rules={[
-        {
-          required: true,
-          message: 'Please input role name',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      wrapperCol={{
-        offset: 5,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Add
-      </Button>
-      <Button style={{marginLeft:'10px'}}>
-        Cancel
-      </Button>
-    </Form.Item>
-  </Form>
+          name="basic"
+          form={form}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 18,
+          }}
+          style={{
+            maxWidth: 600,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Role Name"
+            name="roleName"
+            rules={[
+              {
+                required: true,
+                message: "Please input role name",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 5,
+              span: 16,
+            }}
+          >
+            <Button type="primary" htmlType="submit">
+              Add
+            </Button>
+            <Button onClick={clear} style={{ marginLeft: "10px" }}>
+              Cancel
+            </Button>
+          </Form.Item>
+        </Form>
       </Drawer>
-      <MyNotification notiMsg={notiMsg} />  
+      <MyNotification notiMsg={notiMsg} />
     </>
   );
 }

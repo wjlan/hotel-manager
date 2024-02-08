@@ -17,6 +17,7 @@ export default function Role() {
     $add(values).then(({success,message})=>{
       if(success){
         setNotiMsg({type:'success', description:message})
+        loadlist()
       }else{
         setNotiMsg({type:'error', description:message})
       }
@@ -25,6 +26,10 @@ export default function Role() {
   // roleList data
   let [roleList, setRoleList] = useState([]);
   useEffect(() => {
+    loadlist()
+  }, []);
+  // Load role list
+  const loadlist=()=>{
     $list().then((data) => {
       data = data.map((r) => {
         return {
@@ -33,8 +38,8 @@ export default function Role() {
         };
       });
       setRoleList(data);
-    });
-  }, []);
+  });
+}
   const columns = [
     {
       title: "Role Id",

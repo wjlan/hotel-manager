@@ -79,19 +79,79 @@ export default function AddAdmin({
           autoComplete="off"
         >
           <Form.Item
-            label="Role Id"
-            name="roleId"
+            label="Id"
+            name="id"
             hidden 
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Role Name"
-            name="roleName"
+            label="Login Id"
+            name="loginId"
             rules={[
               {
                 required: true,
-                message: "Please input role name",
+                message: "Please input Login Id",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Password"
+            name="loginPWD"
+            rules={[
+              {
+                required: true,
+                message: "Please input Login Password",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Please input Login Name",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Phone"
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message: "Please input Phone",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Photo"
+            name="photo"
+            rules={[
+              {
+                required: true,
+                message: "Please input Photo",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Role"
+            name="roleId"
+            rules={[
+              {
+                required: true,
+                message: "Please input Role",
               },
             ]}
           >

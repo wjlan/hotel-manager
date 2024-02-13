@@ -24,7 +24,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-export default function UploadImg() {
+export default function UploadImg( form ) {
   // upload status
   const [loading, setLoading] = useState(false);
   // image url
@@ -40,8 +40,10 @@ export default function UploadImg() {
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
-        setImageUrl(url);
+        setLoading(false);  // close uplading
+        setImageUrl(url); // update image url
+        // update image url in the form
+        form.setFieldValue('photo', info.file.response.filename)
       });
     }
   };

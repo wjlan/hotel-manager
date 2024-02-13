@@ -124,7 +124,7 @@ export default function AddAdmin({
               },
             ]}
           >
-            <Input />
+            <Input.Password />
           </Form.Item>
           <Form.Item
             label="Name"
@@ -156,11 +156,11 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please input Photo",
+                message: "Please choose Photo",
               },
             ]}
           >
-            <UploadImg ></UploadImg>
+            <UploadImg form={form} />
           </Form.Item>
           <Form.Item
             label="Role"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
-import {  } from "../../api/adminApi";
+import { $add } from "../../api/adminApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function AddAdmin({
@@ -22,26 +22,26 @@ export default function AddAdmin({
   };
   // form submit function
   const onFinish = (values) => {
-    // if(roleId){
-    //   $update(values).then(({success,message})=>{
-    //     if(success){
-    //       setNotiMsg({type:'success',description:message})
-    //       loadlist()  // load role list
-    //     }else{
-    //       setNotiMsg({type:'error',description:message})
-    //     }
-    //   })
-    // }else{
-    //   $add(values).then(({success, message}) => {
-    //     if (success) {
-    //       setNotiMsg({ type: "success", description: message });
-    //       clear(); // clear form
-    //       loadlist(); // load role list
-    //     } else {
-    //       setNotiMsg({type: "error", description: message});
-    //     }
-    //   });
-    // } 
+    if(loginId){
+      // $update(values).then(({success,message})=>{
+      //   if(success){
+      //     setNotiMsg({type:'success',description:message})
+      //     loadlist()  // load role list
+      //   }else{
+      //     setNotiMsg({type:'error',description:message})
+      //   }
+      // })
+    }else{
+      $add(values).then(({success, message}) => {
+        if (success) {
+          setNotiMsg({ type: "success", description: message });
+          clear(); // clear form
+          loadlist(); // load role list
+        } else {
+          setNotiMsg({type: "error", description: message});
+        }
+      });
+    } 
   };
   // form clearance function
   const clear = () => {
@@ -99,7 +99,7 @@ export default function AddAdmin({
           </Form.Item>
           <Form.Item
             label="Password"
-            name="loginPWD"
+            name="loginPwd"
             rules={[
               {
                 required: true,

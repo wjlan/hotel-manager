@@ -100,7 +100,7 @@ export default function Admin() {
         </Button>
       </div>
       <Table size="small" dataSource={adminList} columns={columns} />
-      <AddAdmin open={open} setOpen={setOpen} />
+      <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} />
     </>
   );
 }

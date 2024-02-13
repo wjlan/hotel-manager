@@ -3,6 +3,7 @@ import { Button, Drawer, Form, Input, Select } from "antd";
 import { $add } from "../../api/adminApi";
 import { $list } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
+import UploadImg from "./UploadImg";
 
 export default function AddAdmin({
   open,
@@ -159,7 +160,7 @@ export default function AddAdmin({
               },
             ]}
           >
-            <Input />
+            <UploadImg ></UploadImg>
           </Form.Item>
           <Form.Item
             label="Role"

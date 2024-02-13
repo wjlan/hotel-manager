@@ -60,7 +60,7 @@ export default function AddAdmin({
   };
   // form clearance function
   const clear = () => {
-    form.setFieldsValue({loginId:'', loginPwd:'', name:'', phone:'', photo:'', roleId:''});
+    form.resetFields();
   };
   useEffect(() => {
     loadRoleList(); //load role list

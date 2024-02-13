@@ -52,7 +52,7 @@ export default function AddRole({
   };
   // form clearance function
   const clear = () => {
-    form.setFieldsValue({ roleName: "" });
+    form.resetFields();
   };
   return (
     <>

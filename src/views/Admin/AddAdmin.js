@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Drawer, Form, Input } from "antd";
+import { Button, Drawer, Form, Input, Select } from "antd";
 import { $add } from "../../api/adminApi";
+import { $list } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function AddAdmin({
@@ -10,6 +11,20 @@ export default function AddAdmin({
   loginId,
   setLoginId,
 }) {
+  // role list
+  let [roleList, setRoleList] = useState([]);
+  // load role list 
+  const loadRoleList = () => {
+    $list().then((data) => {
+      data = data.map((r) => {
+        return {
+          value:r.roleId,
+          label:r.roleName
+        };
+      });
+      setRoleList(data);
+    });
+  };
   // create a form object
   let [form] = Form.useForm();
   // notification box status
@@ -48,12 +63,13 @@ export default function AddAdmin({
     form.setFieldsValue({loginId:'', loginPwd:'', name:'', phone:'', photo:'', roleId:''});
   };
   useEffect(() => {
-    // if (roleId !== 0) {
-    //   $getOne({ roleId }).then((data) => {
-    //     form.setFieldsValue(data);
-    //   });
+    loadRoleList(); //load role list
+    // if(loginId!==0){
+    //   $getOne({loginId}).then(data=>{
+    //     form.setFieldsValue(data)
+    //   })
     // }
-  }, []);
+  }, [loginId]);
   return (
     <>
       <Drawer
@@ -155,7 +171,7 @@ export default function AddAdmin({
               },
             ]}
           >
-            <Input />
+            <Select options={roleList}></Select>
           </Form.Item>
           <Form.Item
             wrapperCol={{

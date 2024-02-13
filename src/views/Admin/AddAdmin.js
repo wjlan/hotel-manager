@@ -45,7 +45,7 @@ export default function AddAdmin({
   };
   // form clearance function
   const clear = () => {
-    form.setFieldsValue({});
+    form.setFieldsValue({loginId:'', loginPwd:'', name:'', phone:'', photo:'', roleId:''});
   };
   useEffect(() => {
     // if (roleId !== 0) {

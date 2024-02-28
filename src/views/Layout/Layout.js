@@ -161,7 +161,7 @@ export default function () {
             }
           )}
           <Menu
-            onclick={onClickMenu}
+            onClick={onClickMenu}
             theme="dark"
             className="menu"
             selectedKeys={[current]}

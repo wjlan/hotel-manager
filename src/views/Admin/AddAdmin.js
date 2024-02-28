@@ -65,12 +65,12 @@ export default function AddAdmin({
   };
   useEffect(() => {
     loadRoleList(); //load role list
-    // if(loginId!==0){
-    //   $getOne({loginId}).then(data=>{
-    //     form.setFieldsValue(data)
-    //   })
-    // }
-  }, [loginId]);
+    if(loginId!==0){
+      $getOne({loginId}).then(data=>{
+        form.setFieldsValue(data)
+      })
+    }
+  }, []);
   return (
     <>
       <Drawer

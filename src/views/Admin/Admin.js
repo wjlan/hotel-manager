@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Popconfirm } from "antd";
 import { $list } from "../../api/adminApi";
 import AddAdmin from "./AddAdmin";
 
 export default function Admin() {
+  // loginId editing status
+  let [loginId,setLoginId] = useState(0)
   // check drawer open or not
   const [open, setOpen] = useState(false);
   // adminList data
@@ -40,37 +42,42 @@ export default function Admin() {
       dataIndex: "roleId",
       width: "100px",
     },
-    // {
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   render: (ret) => (
-    //     <>
-    //       <Button
-    //         size="small"
-    //         style={{ borderColor: "orange", color: "orange" }}
-    //         onClick={() => {
-    //           edit(ret.roleId);
-    //         }}
-    //       >
-    //         Edit
-    //       </Button>
-    //       <Popconfirm
-    //         title="Notion"
-    //         description="Are you sure to delete"
-    //         onConfirm={() => {
-    //           del(ret.roleId);
-    //         }}
-    //         okText="Yes"
-    //         cancelText="No"
-    //       >
-    //         <Button style={{ marginLeft: "5px" }} danger size="small">
-    //           Cancel
-    //         </Button>
-    //       </Popconfirm>
-    //     </>
-    //   ),
-    // },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (ret) => (
+        <>
+          <Button
+            size="small"
+            style={{ borderColor: "orange", color: "orange" }}
+            onClick={()=>{
+              edit(ret.loginId)
+            }}
+          >
+            Edit
+          </Button>
+          <Popconfirm
+            title="Notion"
+            description="Are you sure to delete"
+            onConfirm={() => {
+              del(ret.roleId);
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button style={{ marginLeft: "5px" }} danger size="small">
+              Cancel
+            </Button>
+          </Popconfirm>
+        </>
+      ),
+    },
   ];
+  // edit admin function
+  const edit = (loginId)=>{
+    setOpen(true)  //打开抽屉
+    setLoginId(loginId)  
+  }
   // Load admin list
   const loadlist = () => {
     $list().then(({ data, count }) => {
@@ -100,7 +107,7 @@ export default function Admin() {
         </Button>
       </div>
       <Table size="small" dataSource={adminList} columns={columns} />
-      <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} />
+      <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} loginId={loginId} setLoginId={setLoginId} />
     </>
   );
 }

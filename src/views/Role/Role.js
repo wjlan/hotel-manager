@@ -79,7 +79,7 @@ export default function Role() {
             cancelText="No"
           >
             <Button style={{ marginLeft: "5px" }} danger size="small">
-              Cancel
+              Delete
             </Button>
           </Popconfirm>
         </>

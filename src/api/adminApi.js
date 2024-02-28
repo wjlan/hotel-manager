@@ -35,3 +35,9 @@ export const $update = async (params)=>{
   let {data} = await axios.post('Admin/Update',params)
   return data
 }
+
+// delete admin account
+export const $del = async (params)=>{
+  let {data} = await axios.post('Admin/Delete',params)
+  return data
+}

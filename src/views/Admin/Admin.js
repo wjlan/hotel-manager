@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popconfirm } from "antd";
-import { $list } from "../../api/adminApi";
+import { $list, $del } from "../../api/adminApi";
 import AddAdmin from "./AddAdmin";
+import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function Admin() {
+  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // loginId editing status
   let [loginId,setLoginId] = useState(0)
   // check drawer open or not
@@ -60,13 +62,13 @@ export default function Admin() {
             title="Notion"
             description="Are you sure to delete"
             onConfirm={() => {
-              del(ret.roleId);
+              del(ret.id, ret.photo);
             }}
             okText="Yes"
             cancelText="No"
           >
             <Button style={{ marginLeft: "5px" }} danger size="small">
-              Cancel
+              Delete
             </Button>
           </Popconfirm>
         </>
@@ -78,6 +80,17 @@ export default function Admin() {
     setOpen(true)  //打开抽屉
     setLoginId(loginId)  
   }
+  // delete admin function
+  const del = (id,photo) => {
+    $del({ id,photo }).then(({ success, message }) => {
+      if (success) {
+        setNotiMsg({ type: "success", description: message });
+        loadList(); //重新加载列表
+      } else {
+        setNotiMsg({ type: "error", description: message });
+      }
+    });
+  };
   // Load admin list
   const loadlist = () => {
     $list().then(({ data, count }) => {
@@ -108,6 +121,7 @@ export default function Admin() {
       </div>
       <Table size="small" dataSource={adminList} columns={columns} />
       <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} loginId={loginId} setLoginId={setLoginId} />
+      <MyNotification notiMsg={notiMsg} />
     </>
   );
 }

@@ -29,3 +29,9 @@ export const $add = async (params)=>{
   let {data} = await axios.post('Admin/Add',params)
   return data
 }
+
+// Update admin account
+export const $update = async (params)=>{
+  let {data} = await axios.post('Admin/Update',params)
+  return data
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input, Select } from "antd";
-import { $add, $getOne } from "../../api/adminApi";
+import { $add, $getOne, $update } from "../../api/adminApi";
 import { $list } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import UploadImg from "./UploadImg";
@@ -39,14 +39,14 @@ export default function AddAdmin({
   // form submit function
   const onFinish = (values) => {
     if(loginId){
-      // $update(values).then(({success,message})=>{
-      //   if(success){
-      //     setNotiMsg({type:'success',description:message})
-      //     loadlist()  // load role list
-      //   }else{
-      //     setNotiMsg({type:'error',description:message})
-      //   }
-      // })
+      $update(values).then(({success,message})=>{
+        if(success){
+          setNotiMsg({type:'success',description:message})
+          loadlist()  // load role list
+        }else{
+          setNotiMsg({type:'error',description:message})
+        }
+      })
     }else{
       $add(values).then(({success, message}) => {
         if (success) {
@@ -111,6 +111,7 @@ export default function AddAdmin({
                 message: "Please input Login Id",
               },
             ]}
+            hidden={loginId}
           >
             <Input />
           </Form.Item>
@@ -123,6 +124,7 @@ export default function AddAdmin({
                 message: "Please input Login Password",
               },
             ]}
+            hidden={loginId}
           >
             <Input.Password />
           </Form.Item>

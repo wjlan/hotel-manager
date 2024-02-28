@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input, Select } from "antd";
-import { $add } from "../../api/adminApi";
+import { $add, $getOne } from "../../api/adminApi";
 import { $list } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import UploadImg from "./UploadImg";
@@ -33,7 +33,7 @@ export default function AddAdmin({
   // close drawer function
   const onClose = () => {
     clear(); // clear form
-    // setLoginId(0); // Cancel editing status
+    setLoginId(0); // Cancel editing status
     setOpen(false); // close drawer
   };
   // form submit function
@@ -70,7 +70,7 @@ export default function AddAdmin({
         form.setFieldsValue(data)
       })
     }
-  }, []);
+  }, [loginId]);
   return (
     <>
       <Drawer

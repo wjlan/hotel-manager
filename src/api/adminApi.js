@@ -18,6 +18,12 @@ export const $list = async (params)=>{
   return data
 }
 
+// Get a specific admin account
+export const $getOne = async (params)=>{
+  let {data} = await axios.get('Admin/GetOne',{params})
+  return data
+}
+
 // Add admin account
 export const $add = async (params)=>{
   let {data} = await axios.post('Admin/Add',params)

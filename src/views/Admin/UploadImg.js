@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import {baseURL} from '../../config'
@@ -24,7 +24,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-export default function UploadImg( form ) {
+export default function UploadImg( {form} ) {
   // upload status
   const [loading, setLoading] = useState(false);
   // image url
@@ -65,6 +65,12 @@ export default function UploadImg( form ) {
       </div>
     </button>
   );
+  useEffect(()=>{
+    let photoUrl = form.getFieldValue('photo')
+    if(photoUrl){
+      setImageUrl(baseURL+'upload/admin/'+photoUrl)
+    }
+  },[form.getFieldValue('photo')])
   
   return(
     <>

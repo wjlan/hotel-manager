@@ -39,7 +39,7 @@ export default function Admin() {
     },
     {
       title: "Role",
-      dataIndex: "roleId",
+      dataIndex: "roleName",
       width: "100px",
     },
     {

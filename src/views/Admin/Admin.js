@@ -23,22 +23,22 @@ export default function Admin() {
     {
       title: "Login Id",
       dataIndex: "loginId",
-      width: "100px",
+      width: "150px",
     },
     {
       title: "Name",
       dataIndex: "name",
-      width: "100px",
+      width: "150px",
     },
     {
       title: "Phone",
       dataIndex: "phone",
-      width: "100px",
+      width: "150px",
     },
     {
       title: "Photo",
       dataIndex: "photo",
-      width: "100px",
+      width: "150px",
       render:(ret)=>(
         <img style={{width:'50px'}} src={baseURL+'upload/admin/'+ret} />
       )
@@ -46,7 +46,7 @@ export default function Admin() {
     {
       title: "Role",
       dataIndex: "roleName",
-      width: "100px",
+      width: "150px",
     },
     {
       title: "Action",

@@ -3,6 +3,7 @@ import { Table, Button, Popconfirm } from "antd";
 import { $list, $del } from "../../api/adminApi";
 import AddAdmin from "./AddAdmin";
 import MyNotification from "../../components/MyNotification/MyNotification";
+import {baseURL} from '../../config'
 
 export default function Admin() {
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
@@ -38,6 +39,9 @@ export default function Admin() {
       title: "Photo",
       dataIndex: "photo",
       width: "100px",
+      render:(ret)=>(
+        <img style={{width:'50px'}} src={baseURL+'upload/admin/'+ret} />
+      )
     },
     {
       title: "Role",

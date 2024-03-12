@@ -117,7 +117,7 @@ export default function Admin() {
   };
   useEffect(() => {
     loadlist();
-  }, []);
+  }, [pageIndex]);
   return (
     <>
       <div className="search">
@@ -132,7 +132,7 @@ export default function Admin() {
       </div>
       <Table size="small" dataSource={adminList} columns={columns} pagination={false} />
       <Pagination size='small' defaultCurrent={pageIndex} total={count} pageSize={8} />
-      <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} loginId={loginId} setLoginId={setLoginId} />
+      <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} loginId={loginId} setLoginId={setLoginId} onChange={(page)=>{setPageIndex(page)}} />
       <MyNotification notiMsg={notiMsg} />
     </>
   );

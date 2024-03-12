@@ -18,9 +18,12 @@ export default function Admin() {
           label:r.roleName
         };
       });
+      data.unshift({value:0,label:'Please Select a Role'})
       setRoleList(data);
     });
   };
+  // role Id, for filtering list data
+  let [roleId,setRoleId] = useState(0)
   // count data rows
   let [count,setCount] = useState(1)
   // Page
@@ -116,8 +119,8 @@ export default function Admin() {
     });
   };
   // Load admin list
-  const loadlist = () => {
-    $list({pageSize:8,pageIndex}).then(({ data, count }) => {
+  const loadList = () => {
+    $list({roleId,pageSize:8,pageIndex}).then(({ data, count }) => {
       // console.log(data);
       data = data.map((r) => {
         return {
@@ -132,14 +135,16 @@ export default function Admin() {
   };
   useEffect(() => {
     loadRoleList() // load role list data
-    loadlist();  // load list data
+    loadList();  // load list data
   }, [pageIndex]);
   return (
     <>
       <div className="search">
       <span>Role：</span>
-      <Select size='small' style={{width:'200px'}} options={roleList}></Select>
-      <Button type="primary" style={{marginLeft:'5px'}} size='small' >Search</Button>
+      <Select size='small' style={{width:'200px'}} options={roleList} defaultValue={0} onSelect={(value)=>{
+          setRoleId(value)
+        }}></Select>
+      <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={()=>{loadList()}}>Search</Button>
       <Button
         style={{marginLeft:'5px'}}
         size="small"
@@ -152,7 +157,7 @@ export default function Admin() {
       </div>
       <Table size="small" dataSource={adminList} columns={columns} pagination={false} />
       <Pagination size='small' defaultCurrent={pageIndex} total={count} pageSize={8} />
-      <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} loginId={loginId} setLoginId={setLoginId} onChange={(page)=>{setPageIndex(page)}} />
+      <AddAdmin open={open} setOpen={setOpen} loadList={loadList} loginId={loginId} setLoginId={setLoginId} onChange={(page)=>{setPageIndex(page)}} />
       <MyNotification notiMsg={notiMsg} />
     </>
   );

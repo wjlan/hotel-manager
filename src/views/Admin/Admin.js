@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm } from "antd";
+import { Table, Button, Popconfirm, Pagination } from "antd";
 import { $list, $del } from "../../api/adminApi";
 import AddAdmin from "./AddAdmin";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import {baseURL} from '../../config'
 
 export default function Admin() {
+  // count data rows
+  let [count,setCount] = useState(1)
+  // Page
+  let [pageIndex,setPageIndex] = useState(1)
+  // notification
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // loginId editing status
   let [loginId,setLoginId] = useState(0)
@@ -97,15 +102,17 @@ export default function Admin() {
   };
   // Load admin list
   const loadlist = () => {
-    $list().then(({ data, count }) => {
+    $list({pageSize:8,pageIndex}).then(({ data, count }) => {
       // console.log(data);
       data = data.map((r) => {
         return {
           ...r,
           key: r.loginId,
+          roleName:r.role.roleName
         };
       });
       setAdminList(data);
+      setCount(count)
     });
   };
   useEffect(() => {
@@ -123,7 +130,8 @@ export default function Admin() {
           Add
         </Button>
       </div>
-      <Table size="small" dataSource={adminList} columns={columns} />
+      <Table size="small" dataSource={adminList} columns={columns} pagination={false} />
+      <Pagination size='small' defaultCurrent={pageIndex} total={count} pageSize={8} />
       <AddAdmin open={open} setOpen={setOpen} loadlist={loadlist} loginId={loginId} setLoginId={setLoginId} />
       <MyNotification notiMsg={notiMsg} />
     </>

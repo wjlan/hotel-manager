@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm, Pagination } from "antd";
+import { Table, Button, Popconfirm, Pagination, Select } from "antd";
 import { $list, $del } from "../../api/adminApi";
+import { $list as $roleList } from '../../api/RoleApi'
 import AddAdmin from "./AddAdmin";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import {baseURL} from '../../config'
 
 export default function Admin() {
+  // role list
+  let [roleList, setRoleList] = useState([]);
+  // load role list 
+  const loadRoleList = () => {
+    $roleList().then((data) => {
+      data = data.map((r) => {
+        return {
+          value:r.roleId,
+          label:r.roleName
+        };
+      });
+      setRoleList(data);
+    });
+  };
   // count data rows
   let [count,setCount] = useState(1)
   // Page
@@ -86,7 +101,7 @@ export default function Admin() {
   ];
   // edit admin function
   const edit = (loginId)=>{
-    setOpen(true)  //打开抽屉
+    setOpen(true)  
     setLoginId(loginId)  
   }
   // delete admin function
@@ -94,7 +109,7 @@ export default function Admin() {
     $del({ id,photo }).then(({ success, message }) => {
       if (success) {
         setNotiMsg({ type: "success", description: message });
-        loadList(); //重新加载列表
+        loadList(); 
       } else {
         setNotiMsg({ type: "error", description: message });
       }
@@ -116,19 +131,24 @@ export default function Admin() {
     });
   };
   useEffect(() => {
-    loadlist();
+    loadRoleList() // load role list data
+    loadlist();  // load list data
   }, [pageIndex]);
   return (
     <>
       <div className="search">
-        <Button
-          size="small"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          Add
-        </Button>
+      <span>Role：</span>
+      <Select size='small' style={{width:'200px'}} options={roleList}></Select>
+      <Button type="primary" style={{marginLeft:'5px'}} size='small' >Search</Button>
+      <Button
+        style={{marginLeft:'5px'}}
+        size="small"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Add
+      </Button>
       </div>
       <Table size="small" dataSource={adminList} columns={columns} pagination={false} />
       <Pagination size='small' defaultCurrent={pageIndex} total={count} pageSize={8} />

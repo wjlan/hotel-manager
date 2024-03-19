@@ -1,28 +1,34 @@
 import {createSlice,configureStore} from '@reduxjs/toolkit'
 
-const loginAdmin = createSlice({
-  name: 'loginAdmin',
+export const adminSlice = createSlice({
+  name:'adminSlice',
   // initial status
-  initialState: {
+  initialState:{
     admin:{
-      name:'Wanjun',
-      age:30
+      id:'',
+      loginId:'',
+      name:'',
+      phone:'',
+      photo:'',
+      roleName:''
     }
   },
-  // integrator
+  
   reducers:{
     setAdmin(state, action){
-      state.admin = action.payload 
+      state.admin = {
+        ...action.payload
+      }
     }
   }
 })
 
-// 
+
+// create store
 const store = configureStore({
   reducer:{
-    loginAdmin:loginAdmin.reducer
+    adminSlice:adminSlice.reducer
   }
 })
-
 
 export default store

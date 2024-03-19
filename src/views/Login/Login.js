@@ -3,8 +3,13 @@ import { useNavigate  } from "react-router-dom";
 import "./Login.scss";
 import { Button, Form, Input} from "antd";
 import MyNotification from "../../components/MyNotification/MyNotification";
-import {$login} from '../../api/adminApi'; 
+import {$login, $getOne} from '../../api/adminApi'; 
+import {useDispatch} from 'react-redux'
+import {adminSlice} from '../../redux'
 export default function Login() {
+  // create a redux dispatch
+  const dispatch = useDispatch()
+  let {setAdmin} = adminSlice.actions
   // navigate
   let navigate = useNavigate()
   // Check if the login is successful
@@ -23,6 +28,9 @@ export default function Login() {
     let {message, success} = await $login(values)
     // login validation
     if(success) {
+      let admin = await $getOne({loginId:values.loginId})
+      // store the current login account information into redux
+      dispatch(setAdmin(admin))
       setNotiMsg({type:'success', description:message})
       // directed to layout
       navigate('/layout')

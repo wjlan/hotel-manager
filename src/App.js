@@ -4,6 +4,7 @@ import Login from "./views/Login/Login";
 import Layout from "./views/Layout/Layout";
 import Role from './views/Role/Role';
 import Admin from './views/Admin/Admin';
+import Mine from './views/Admin/Mine';
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
         <Route path='/layout' element={<Layout/>}>
           <Route path='role' element={<Role/>}/>
           <Route path='admin' element={<Admin/>}/>
+          <Route path='mine' element={<Mine/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

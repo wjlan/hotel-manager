@@ -116,6 +116,9 @@ export default function () {
       case "admin":
         navigate("/layout/admin");
         break;
+      case "my":
+        navigate("/layout/mine");
+        break;
       // if the submenu is exit, exit the system
       case 'exit':
         confirm({

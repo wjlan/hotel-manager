@@ -35,7 +35,7 @@ export default function UpdatePwd() {
         rules={[
           {
             required: true,
-            message: "Please input Login Password",
+            message: "Please input old Login Password",
           },
         ]}
       >
@@ -47,7 +47,7 @@ export default function UpdatePwd() {
         rules={[
           {
             required: true,
-            message: "Please input Login Password",
+            message: "Please input new Login Password",
           },
         ]}
       >
@@ -56,11 +56,20 @@ export default function UpdatePwd() {
       <Form.Item
         label="Confirmed Password"
         name="newLoginPwd2"
+        dependencies={['newLoginPwd']}
         rules={[
           {
             required: true,
-            message: "Please input Login Password",
+            message: "Please confirm new Login Password",
           },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('newLoginPwd') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('The two passwords that you entered do not match'));
+            },
+          }),
         ]}
       >
         <Input.Password />

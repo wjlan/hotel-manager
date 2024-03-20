@@ -116,8 +116,13 @@ export default function () {
       case "admin":
         navigate("/layout/admin");
         break;
+      // Personal information
       case "my":
         navigate("/layout/mine");
+        break;
+      // Reset password
+      case "pwd":
+        navigate("/layout/pwd");
         break;
       // if the submenu is exit, exit the system
       case 'exit':

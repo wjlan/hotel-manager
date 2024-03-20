@@ -26,6 +26,8 @@ export const $getOne = async (params)=>{
 
 // Add admin account
 export const $add = async (params)=>{
+  // password encryption
+  params.loginPwd = md5(md5(params.loginPwd).split('').reverse().join(''))
   let {data} = await axios.post('Admin/Add',params)
   return data
 }
@@ -39,5 +41,14 @@ export const $update = async (params)=>{
 // delete admin account
 export const $del = async (params)=>{
   let {data} = await axios.post('Admin/Delete',params)
+  return data
+}
+
+// Reset password
+export const $resetPwd = async (params)=>{
+  // password encryption
+  params.oldLoginPwd = md5(md5(params.oldLoginPwd).split('').reverse().join(''))
+  params.newLoginPwd = md5(md5(params.newLoginPwd).split('').reverse().join(''))
+  let {data} = await axios.post('Admin/ResetPwd',params)
   return data
 }

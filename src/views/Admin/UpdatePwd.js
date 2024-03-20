@@ -1,16 +1,37 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Button, Form, Input } from "antd";
+import {useSelector} from 'react-redux'
+import {$resetPwd} from '../../api/adminApi'
+import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function UpdatePwd() {
+  // notification status
+  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
+  // aquire login information
+  const {adminSlice} = useSelector(state=>state)
+  const {admin} = adminSlice
+  
   // Create a form object
   let [form] = Form.useForm();
   // form submit function
-  const onFinish = (values) => {}
+  const onFinish = async (values) => {
+    let {message,success} = await $resetPwd(values)
+    if(success){
+      setNotiMsg({type:'success',description:message})
+    }else{
+      setNotiMsg({type:'error',description:message})
+    }
+  }
   // form clear function
   const clear = () => {
     form.resetFields()
   };
+  // side effect
+  useEffect(()=>{
+    form.setFieldValue('id',admin.id)
+  },[admin.id])
   return (
+    <>
     <Form
       name="basic"
       form={form}
@@ -88,5 +109,7 @@ export default function UpdatePwd() {
         </Button>
       </Form.Item>
     </Form>
+    <MyNotification notiMsg={notiMsg} />
+    </>
   );
 }

@@ -5,12 +5,7 @@ export const adminSlice = createSlice({
   // initial status
   initialState:{
     admin:{
-      id:'',
-      loginId:'',
-      name:'',
-      phone:'',
-      photo:'',
-      roleName:''
+      
     }
   },
   

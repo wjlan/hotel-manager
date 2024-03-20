@@ -28,6 +28,9 @@ export default function Login() {
     let {message, success} = await $login(values)
     // login validation
     if(success) {
+      // store loginId in session
+      sessionStorage.setItem('loginId',values.loginId)
+      // get account information based on loginId
       let admin = await $getOne({loginId:values.loginId})
       // store the current login account information into redux
       dispatch(setAdmin(admin))

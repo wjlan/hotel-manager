@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Popconfirm } from "antd";
 import { $list } from "../../api/typeApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
+import AddType from "./AddType";
 
 export default function Type() {
   // // roleId editing status
@@ -108,6 +109,7 @@ export default function Type() {
         </Button>
       </div>
       <Table size="small" dataSource={typeList} columns={columns} />
+      <AddType open={open} setOpen={setOpen} loadList={loadList} roomTypeId={roomTypeId} setRoomTypeId={setRoomTypeId} />
       <MyNotification notiMsg={notiMsg} />
     </>
   );

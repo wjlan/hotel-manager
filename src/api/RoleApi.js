@@ -24,7 +24,7 @@ export const $del = async (params)=>{
   return data
 }
 
-// 修改角色
+// Edit role
 export const $update = async (params)=>{
   let {data} = await axios.post('Role/Update',params)
   return data

@@ -5,8 +5,8 @@ import MyNotification from "../../components/MyNotification/MyNotification";
 import AddType from "./AddType";
 
 export default function Type() {
-  // // roleId editing status
-  // let [roleId,setRoleId] = useState(0)
+  // // room type Id editing status
+  let [roomTypeId,setRoomTypeId] = useState(0)
   // notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // check drawer open or not
@@ -28,11 +28,11 @@ export default function Type() {
       setTypeList(data);
     });
   };
-  // // edit role function
-  // const edit = (roleId)=>{
-  //   setOpen(true)   // open drawer
-  //   setRoleId(roleId)  // set roldId to be editing status
-  // }
+  // edit role function
+  const edit = (roomTypeId)=>{
+    setOpen(true)   // open drawer
+    setRoomTypeId(roomTypeId)  // set roomTypeId to be editing status
+  }
   // // del role function
   // const del = (roleId) => {
   //   $del({ roleId }).then(({ success, message }) => {
@@ -74,7 +74,7 @@ export default function Type() {
             size="small"
             style={{ borderColor: "orange", color: "orange" }}
             onClick={() => {
-              edit(ret.roleId);
+              edit(ret.roomTypeId);
             }}
           >
             Edit

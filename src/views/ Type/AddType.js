@@ -8,24 +8,24 @@ export default function AddType({
   open,
   setOpen,
   loadlist,
-  roleId,
-  setRoleId,
+  roomTypeId,
+  setRoomTypeId,
 }) {
   // create a form object
   let [form] = Form.useForm();
   // notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   useEffect(() => {
-    if (roleId !== 0) {
-      $getOne({ roleId }).then((data) => {
+    if (roomTypeId !== 0) {
+      $getOne({ roomTypeId }).then((data) => {
         form.setFieldsValue(data);
       });
     }
-  }, [roleId]);
+  }, [roomTypeId]);
   // close drawer function
   const onClose = () => {
     clear(); // clear form
-    setRoleId(0); // Cancel editing status
+    setRoomTypeId(0); // Cancel editing status
     setOpen(false); // close drawer
   };
   // form submit function
@@ -35,7 +35,7 @@ export default function AddType({
       $update(values).then(({success,message})=>{
         if(success){
           setNotiMsg({type:'success',description:message})
-          loadlist()  // load role list
+          loadlist()  // load room type list
         }else{
           setNotiMsg({type:'error',description:message})
         }
@@ -46,7 +46,7 @@ export default function AddType({
         if (success) {
           setNotiMsg({ type: "success", description: message });
           clear(); // clear form
-          loadlist(); // load role list
+          loadlist(); // load room type list
         } else {
           setNotiMsg({type: "error", description: message});
         }
@@ -147,7 +147,7 @@ export default function AddType({
             }}
           >
             <Button type="primary" htmlType="submit">
-              {roleId?'Edit':'Add'}
+              {roomTypeId?'Edit':'Add'}
             </Button>
             <Button onClick={clear} style={{ marginLeft: "10px" }}>
               Cancel

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
 import { $add, $getOne, $update } from "../../api/typeApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
+import ReactQuill from 'react-quill'
 
 export default function AddType({
   open,
@@ -60,7 +61,7 @@ export default function AddType({
     <>
       <Drawer
         title={roomTypeId?'Edit Room Type':'Add Room Type'}
-        width={500}
+        width={600}
         placement="right"
         onClose={onClose}
         open={open}
@@ -133,7 +134,11 @@ export default function AddType({
               },
             ]}
           >
-            <Input />
+            <ReactQuill
+              className="publish-quill"
+              theme="snow"
+              placeholder="Please input type description"
+            />
           </Form.Item>
           <Form.Item
             wrapperCol={{

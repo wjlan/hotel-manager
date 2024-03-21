@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
-import { $add, $getOne, $update } from "../../api/RoleApi";
+import { $add, $getOne, $update } from "../../api/typeApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function AddType({

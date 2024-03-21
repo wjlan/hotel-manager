@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Popconfirm } from "antd";
-import { $list } from "../../api/typeApi";
+import { $list, $del } from "../../api/typeApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import AddType from "./AddType";
 
@@ -16,7 +16,7 @@ export default function Type() {
   useEffect(() => {
     loadlist();
   }, []);
-  // Load role list
+  // Load room type list
   const loadlist = () => {
     $list().then((data) => {
       data = data.map((r) => {
@@ -28,22 +28,22 @@ export default function Type() {
       setTypeList(data);
     });
   };
-  // edit role function
+  // edit room type function
   const edit = (roomTypeId)=>{
     setOpen(true)   // open drawer
     setRoomTypeId(roomTypeId)  // set roomTypeId to be editing status
   }
-  // // del role function
-  // const del = (roleId) => {
-  //   $del({ roleId }).then(({ success, message }) => {
-  //     if (success) {
-  //       setNotiMsg({ type: "success", description: message });
-  //       loadlist();
-  //     } else {
-  //       setNotiMsg({ type: "error", description: message });
-  //     }
-  //   });
-  // };
+  // del room type function
+  const del = (roomTypeId) => {
+    $del({ roomTypeId }).then(({ success, message }) => {
+      if (success) {
+        setNotiMsg({ type: "success", description: message });
+        loadList(); 
+      } else {
+        setNotiMsg({ type: "error", description: message });
+      }
+    });
+  };
   const columns = [
     {
       title: "Room Type Id",
@@ -83,7 +83,7 @@ export default function Type() {
             title="Notion"
             description="Are you sure to delete"
             onConfirm={() => {
-              del(ret.roleId);
+              del(ret.roomTypeId);
             }}
             okText="Yes"
             cancelText="No"

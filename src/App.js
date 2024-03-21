@@ -10,6 +10,7 @@ import Role from './views/Role/Role';
 import Admin from './views/Admin/Admin';
 import Mine from './views/Admin/Mine';
 import UpdatePwd from './views/Admin/UpdatePwd'
+import Type from './views/Type/Type'
 
 function App() {
   useEffect(()=>{
@@ -36,6 +37,7 @@ function App() {
           <Route path='admin' element={<Admin/>}/>
           <Route path='mine' element={<Mine/>}/>
           <Route path='pwd' element={<UpdatePwd/>}/>
+          <Route path='type' element={<Type/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

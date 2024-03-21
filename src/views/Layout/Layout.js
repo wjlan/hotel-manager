@@ -124,6 +124,10 @@ export default function () {
       case "pwd":
         navigate("/layout/pwd");
         break;
+      // Room type 
+      case "type":
+        navigate("/layout/type");
+        break;
       // if the submenu is exit, exit the system
       case 'exit':
         confirm({

@@ -149,7 +149,8 @@ export default function Room() {
       </Button>
       </div>
       <Table size="small" dataSource={roomList} columns={columns} pagination={false} />
-      <Pagination size='small' defaultCurrent={pageIndex} total={count} pageSize={8} />
+      <Pagination style={{marginTop:'5px'}} size='small' defaultCurrent={pageIndex} 
+      total={count} pageSize={10} onChange={(page)=>{setPageIndex(page)}}/>
       <MyNotification notiMsg={notiMsg} />
     </>
   );

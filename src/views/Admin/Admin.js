@@ -156,8 +156,9 @@ export default function Admin() {
       </Button>
       </div>
       <Table size="small" dataSource={adminList} columns={columns} pagination={false} />
-      <Pagination size='small' defaultCurrent={pageIndex} total={count} pageSize={8} />
-      <AddAdmin open={open} setOpen={setOpen} loadList={loadList} loginId={loginId} setLoginId={setLoginId} onChange={(page)=>{setPageIndex(page)}} />
+      <Pagination style={{marginTop:'5px'}} size='small' defaultCurrent={pageIndex} 
+      total={count} pageSize={8} onChange={(page)=>{setPageIndex(page)}}/>
+      <AddAdmin open={open} setOpen={setOpen} loadList={loadList} loginId={loginId} setLoginId={setLoginId} />
       <MyNotification notiMsg={notiMsg} />
     </>
   );

@@ -128,6 +128,9 @@ export default function () {
       case "type":
         navigate("/layout/type");
         break;
+      // Room 
+      case "room":
+        navigate("/layout/room");
       // if the submenu is exit, exit the system
       case 'exit':
         confirm({

@@ -11,6 +11,7 @@ import Admin from './views/Admin/Admin';
 import Mine from './views/Admin/Mine';
 import UpdatePwd from './views/Admin/UpdatePwd'
 import Type from './views/Type/Type'
+import Room from './views/Room/Room'
 
 function App() {
   useEffect(()=>{
@@ -38,6 +39,7 @@ function App() {
           <Route path='mine' element={<Mine/>}/>
           <Route path='pwd' element={<UpdatePwd/>}/>
           <Route path='type' element={<Type/>}/>
+          <Route path='room' element={<Room/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

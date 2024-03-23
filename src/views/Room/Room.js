@@ -36,8 +36,10 @@ export default function Room() {
       setStateList(data);
     })
   }
-  // role Id, for filtering list data
-  let [roleId,setRoleId] = useState(0)
+  // room type id for filtering list data
+  let [roomTypeId,setRoomTypeId] = useState(0)
+  // room state id for filtering list data
+  let [roomStateId,setRoomStateId] = useState(0)
   // count data rows
   let [count,setCount] = useState(1)
   // Page
@@ -152,13 +154,13 @@ export default function Room() {
       <div className="search">
       <span>Type：</span>
       <Select size='small' style={{width:'200px'}} options={typeList} defaultValue={0} onSelect={(value)=>{
-          setRoleId(value)
+          setRoomTypeId(value)
         }}></Select>
       <span style={{marginLeft:'5px'}}>State：</span>
         <Select size='small' style={{width:'200px'}} options={stateList} defaultValue={0} onSelect={(value)=>{
           setRoomStateId(value)
         }}></Select>
-      <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={()=>{loadList()}}>Search</Button>
+      <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={loadList}>Search</Button>
       <Button
         style={{marginLeft:'5px'}}
         size="small"

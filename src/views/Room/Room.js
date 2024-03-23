@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm, Pagination, Select } from "antd";
+import { Table, Button, Popconfirm, Pagination, Select, Tag } from "antd";
 import { $list } from "../../api/roomApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$list as $stateList} from '../../api/stateApi'
@@ -78,6 +78,11 @@ export default function Room() {
       title: "Room State",
       dataIndex: "roomStateName",
       width: "150px",
+      render: (roomStateName) => (
+        <Tag color={roomStateName==='Empty'?'lightgreen':(roomStateName==='Maitenance'?'lightsalmon':'lightcoral')}>
+          {roomStateName}
+        </Tag>
+      )
     },
    
     {

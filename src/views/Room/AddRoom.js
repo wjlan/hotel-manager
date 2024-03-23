@@ -81,19 +81,55 @@ export default function AddRoom({
           autoComplete="off"
         >
           <Form.Item
-            label="Role Id"
-            name="roleId"
-            hidden 
+            label="Room Id"
+            name="id"
+            hidden
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Role Name"
-            name="roleName"
+            label="Room Id"
+            name="roomId"
             rules={[
               {
                 required: true,
-                message: "Please input role name",
+                message: "Please input room Id",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Room Description"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Please input room description",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Room Type"
+            name="roomTypeId"
+            rules={[
+              {
+                required: true,
+                message: "Please input room type",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Room State"
+            name="roomStateId"
+            rules={[
+              {
+                required: true,
+                message: "Please input room state",
               },
             ]}
           >

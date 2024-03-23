@@ -154,7 +154,7 @@ export default function Room() {
       <Select size='small' style={{width:'200px'}} options={typeList} defaultValue={0} onSelect={(value)=>{
           setRoleId(value)
         }}></Select>
-      <span >State：</span>
+      <span style={{marginLeft:'5px'}}>State：</span>
         <Select size='small' style={{width:'200px'}} options={stateList} defaultValue={0} onSelect={(value)=>{
           setRoomStateId(value)
         }}></Select>

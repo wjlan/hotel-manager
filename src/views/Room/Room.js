@@ -4,6 +4,7 @@ import { $list } from "../../api/roomApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$list as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
+import AddRoom from './AddRoom'
 
 export default function Room() {
   // room type list
@@ -47,7 +48,7 @@ export default function Room() {
   // notification
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // loginId editing status
-  let [loginId,setLoginId] = useState(0)
+  let [roomId,setRoomId] = useState(0)
   // check drawer open or not
   const [open, setOpen] = useState(false);
   // room list data
@@ -157,11 +158,11 @@ export default function Room() {
   return (
     <>
       <div className="search">
-      <span>Type：</span>
+      <span>Type:</span>
       <Select size='small' style={{width:'200px'}} options={typeList} defaultValue={0} onSelect={(value)=>{
           setRoomTypeId(value)
         }}></Select>
-      <span style={{marginLeft:'5px'}}>State：</span>
+      <span style={{marginLeft:'5px'}}>State:</span>
         <Select size='small' style={{width:'200px'}} options={stateList} defaultValue={0} onSelect={(value)=>{
           setRoomStateId(value)
         }}></Select>
@@ -179,6 +180,7 @@ export default function Room() {
       <Table size="small" dataSource={roomList} columns={columns} pagination={false} />
       <Pagination style={{marginTop:'5px'}} size='small' defaultCurrent={pageIndex} 
       total={count} pageSize={10} onChange={(page)=>{setPageIndex(page)}}/>
+      <AddRoom open={open} setOpen={setOpen} loadList={loadList} roomId={roomId} setRoomId={setRoomId}/>
       <MyNotification notiMsg={notiMsg} />
     </>
   );

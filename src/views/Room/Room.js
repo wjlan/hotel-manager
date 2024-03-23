@@ -1,25 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popconfirm, Pagination, Select } from "antd";
 import { $list } from "../../api/roomApi";
-import { $list as $roleList } from '../../api/RoleApi'
+import {$list as $typeList} from '../../api/typeApi'
+import {$list as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
 
 export default function Room() {
-  // role list
-  let [roleList, setRoleList] = useState([]);
-  // load role list 
-  const loadRoleList = () => {
-    $roleList().then((data) => {
+  // room type list
+  let [typeList, setTypeList] = useState([]);
+  // room state list
+  let [stateList, setStateList] = useState([]);
+  // load room type list 
+  const loadTypeList = () => {
+    $typeList().then((data) => {
       data = data.map((r) => {
         return {
-          value:r.roleId,
-          label:r.roleName
+          value:r.roomTypeId,
+          label:r.roomTypeName
         };
       });
-      data.unshift({value:0,label:'Please Select a Role'})
-      setRoleList(data);
+      data.unshift({value:0,label:'Please Select a Room Type'})
+      setTypeList(data);
     });
   };
+  // load room state list
+  const loadStateList = ()=>{
+    $stateList().then((data)=>{
+      data = data.map((r) => {
+        return {
+          value:r.roomStateId,
+          label:r.roomStateName
+        };
+      });
+      data.unshift({value:0,label:'Please Select Room State'})
+      setStateList(data);
+    })
+  }
   // role Id, for filtering list data
   let [roleId,setRoleId] = useState(0)
   // count data rows
@@ -127,15 +143,20 @@ export default function Room() {
     });
   };
   useEffect(() => {
-    loadRoleList() // load role list data
-    loadList();  // load list data
+    loadTypeList()  // load room type list data
+    loadStateList()   // load room state list data
+    loadList();   
   }, [pageIndex]);
   return (
     <>
       <div className="search">
-      <span>Role：</span>
-      <Select size='small' style={{width:'200px'}} options={roleList} defaultValue={0} onSelect={(value)=>{
+      <span>Type：</span>
+      <Select size='small' style={{width:'200px'}} options={typeList} defaultValue={0} onSelect={(value)=>{
           setRoleId(value)
+        }}></Select>
+      <span >State：</span>
+        <Select size='small' style={{width:'200px'}} options={stateList} defaultValue={0} onSelect={(value)=>{
+          setRoomStateId(value)
         }}></Select>
       <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={()=>{loadList()}}>Search</Button>
       <Button

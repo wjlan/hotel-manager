@@ -99,9 +99,9 @@ export default function () {
       ],
     },
     {
-      key: "client",
+      key: "guest",
       icon: <SettingOutlined />,
-      label: "Client Management",
+      label: "Guest Management",
     },
   ];
   // onClickMenu function
@@ -131,6 +131,11 @@ export default function () {
       // Room 
       case "room":
         navigate("/layout/room");
+        break;
+      // Guest 
+      case "guest":
+        navigate("/layout/guest");
+        break;
       // if the submenu is exit, exit the system
       case 'exit':
         confirm({

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input } from "antd";
 import { $add, $getOne, $update } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
+import ReactQuill from 'react-quill'
 
 export default function AddRoom({
   open,
@@ -60,7 +61,7 @@ export default function AddRoom({
     <>
       <Drawer
         title={roomId?'Edit Room':'Add Room'}
-        width={500}
+        width={600}
         placement="right"
         onClose={onClose}
         open={open}
@@ -109,7 +110,11 @@ export default function AddRoom({
               },
             ]}
           >
-            <Input />
+            <ReactQuill
+              className="publish-quill"
+              theme="snow"
+              placeholder="Please input room description"
+            />
           </Form.Item>
           <Form.Item
             label="Room Type"

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Popconfirm, Pagination, Select, Tag } from "antd";
 import { $list } from "../../api/roomApi";
 import {$list as $typeList} from '../../api/typeApi'
-import {$list as $stateList} from '../../api/stateApi'
+import {$listToUpdate as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
 import AddRoom from './AddRoom'
 

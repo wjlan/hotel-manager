@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Drawer, Form, Input } from "antd";
+import { Button, Drawer, Form, Input, Select } from "antd";
 import { $add, $getOne, $update } from "../../api/RoleApi";
+import {$list as $typeList} from '../../api/typeApi'
+import {$list as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
 import ReactQuill from 'react-quill'
 
@@ -11,11 +13,41 @@ export default function AddRoom({
   roomId,
   setRoomId,
 }) {
+  // room type list
+  let [typeList, setTypeList] = useState([]);
+  // room state list
+  let [stateList, setStateList] = useState([]);
+  // load room type list 
+  const loadTypeList = () => {
+    $typeList().then((data) => {
+      data = data.map((r) => {
+        return {
+          value:r.roomTypeId,
+          label:r.roomTypeName
+        };
+      });
+      setTypeList(data);
+    });
+  };
+  // load room state list
+  const loadStateList = ()=>{
+    $stateList().then((data)=>{
+      data = data.map((r) => {
+        return {
+          value:r.roomStateId,
+          label:r.roomStateName
+        };
+      });
+      setStateList(data);
+    })
+  }
   // create a form object
   let [form] = Form.useForm();
   // notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   useEffect(() => {
+    loadTypeList()  // load room type list data
+    loadStateList()   // load room state list data
     if (roomId !== 0) {
       // $getOne({roleId}).then((data) => {
       //   form.setFieldsValue(data);
@@ -126,7 +158,7 @@ export default function AddRoom({
               },
             ]}
           >
-            <Input />
+            <Select size='small' style={{width:'200px'}} options={typeList}></Select>
           </Form.Item>
           <Form.Item
             label="Room State"
@@ -138,7 +170,7 @@ export default function AddRoom({
               },
             ]}
           >
-            <Input />
+            <Select size='small' style={{width:'200px'}} options={stateList}></Select>
           </Form.Item>
           <Form.Item
             wrapperCol={{

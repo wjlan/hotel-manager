@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input, Select } from "antd";
-import { $add, $getOne, $update } from "../../api/RoleApi";
+import { $add, $getOne, $update } from "../../api/roomApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$list as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";

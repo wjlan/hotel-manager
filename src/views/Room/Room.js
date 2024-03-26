@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popconfirm, Pagination, Select, Tag } from "antd";
-import { $list } from "../../api/roomApi";
+import { $list, $del } from "../../api/roomApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$listToUpdate as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
@@ -89,32 +89,35 @@ export default function Room() {
     {
       title: "Action",
       dataIndex: "action",
-      render: (ret) => (
-        <>
-          <Button
-            size="small"
-            style={{ borderColor: "orange", color: "orange" }}
-            onClick={()=>{
-              edit(ret.roomId)
-            }}
-          >
-            Edit
-          </Button>
-          <Popconfirm
-            title="Notion"
-            description="Are you sure to delete"
-            onConfirm={() => {
-              del(ret.id, ret.photo);
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button style={{ marginLeft: "5px" }} danger size="small">
-              Delete
+      render: (ret) => {
+        return (
+          ret.roomStateName==='入住'?null:
+          <>
+            <Button
+              size="small"
+              style={{ borderColor: "orange", color: "orange" }}
+              onClick={()=>{
+                edit(ret.roomId)
+              }}
+            >
+              Edit
             </Button>
-          </Popconfirm>
-        </>
-      ),
+            <Popconfirm
+              title="Notion"
+              description="Are you sure to delete"
+              onConfirm={() => {
+                del(ret.roomId);
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button style={{ marginLeft: "5px" }} danger size="small">
+                Delete
+              </Button>
+            </Popconfirm>
+          </>
+        )
+      },
     },
   ];
   // edit admin function
@@ -122,18 +125,18 @@ export default function Room() {
     setOpen(true)  
     setRoomId(roomId)  
   }
-  // // delete admin function
-  // const del = (id,photo) => {
-  //   $del({ id,photo }).then(({ success, message }) => {
-  //     if (success) {
-  //       setNotiMsg({ type: "success", description: message });
-  //       loadList(); 
-  //     } else {
-  //       setNotiMsg({ type: "error", description: message });
-  //     }
-  //   });
-  // };
-  // Load admin list
+  // delete admin function
+  const del = (roomId) => {
+    $del({ roomId }).then(({ success, message }) => {
+      if (success) {
+        setNotiMsg({ type: "success", description: message });
+        loadList(); 
+      } else {
+        setNotiMsg({ type: "error", description: message });
+      }
+    });
+  };
+  // Load room list
   const loadList = () => {
     $list({roomTypeId,roomStateId,pageSize:10,pageIndex}).then(({data,count}) => {
       data = data.map((r) => {

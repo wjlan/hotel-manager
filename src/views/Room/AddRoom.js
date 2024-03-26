@@ -49,9 +49,11 @@ export default function AddRoom({
     loadTypeList()  // load room type list data
     loadStateList()   // load room state list data
     if (roomId !== 0) {
-      // $getOne({roleId}).then((data) => {
-      //   form.setFieldsValue(data);
-      // });
+      $getOne({roomId}).then((data) => {
+        // copy roomId to id, because roomId can also be edited
+        data.id = data.roomId
+        form.setFieldsValue(data);
+      });
     }
   }, [roomId]);
   // close drawer function

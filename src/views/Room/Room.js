@@ -95,7 +95,7 @@ export default function Room() {
             size="small"
             style={{ borderColor: "orange", color: "orange" }}
             onClick={()=>{
-              edit(ret.loginId)
+              edit(ret.roomId)
             }}
           >
             Edit
@@ -117,11 +117,11 @@ export default function Room() {
       ),
     },
   ];
-  // // edit admin function
-  // const edit = (loginId)=>{
-  //   setOpen(true)  
-  //   setLoginId(loginId)  
-  // }
+  // edit admin function
+  const edit = (roomId)=>{
+    setOpen(true)  
+    setRoomId(roomId)  
+  }
   // // delete admin function
   // const del = (id,photo) => {
   //   $del({ id,photo }).then(({ success, message }) => {

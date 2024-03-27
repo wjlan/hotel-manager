@@ -1,46 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm, Pagination, Select, Tag } from "antd";
+import { Table, Button, Popconfirm, Pagination, Select, Tag, Input } from "antd";
 import { $list, $del } from "../../api/guestApi";
-import {$list as $typeList} from '../../api/typeApi'
-import {$listToUpdate as $stateList} from '../../api/stateApi'
+import { $list as $resideList } from '../../api/resideApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
 // import AddRoom from './AddRoom'
 
 export default function Guest() {
-  // room type list
-  let [typeList, setTypeList] = useState([]);
-  // room state list
-  let [stateList, setStateList] = useState([]);
-  // load room type list 
-  const loadTypeList = () => {
-    $typeList().then((data) => {
-      data = data.map((r) => {
-        return {
-          value:r.roomTypeId,
-          label:r.roomTypeName
-        };
-      });
-      data.unshift({value:0,label:'Please Select a Room Type'})
-      setTypeList(data);
-    });
-  };
-  // load room state list
+  // reside state list
+  let [resideList, setResideList] = useState([]);
+  // load reside state list
   const loadStateList = ()=>{
-    $stateList().then((data)=>{
+    $resideList().then((data)=>{
       data = data.map((r) => {
         return {
-          value:r.roomStateId,
-          label:r.roomStateName
+          value:r.resideStateId,
+          label:r.resideStateName
         };
       });
-      data.unshift({value:0,label:'Please Select Room State'})
-      setStateList(data);
+      data.unshift({value:0,label:'Please Select Reside State'})
+      setResideList(data);
     })
   }
-  // room type id for filtering list data
-  let [roomTypeId,setRoomTypeId] = useState(0)
-  // room state id for filtering list data
-  let [roomStateId,setRoomStateId] = useState(0)
+  // guest name for filtering list data
+  let [guestName,setGuestName] = useState(null)
+  // reside state id for filtering list data
+  let [resideStateId,setResideStateId] = useState(0)
   // count data rows
   let [count,setCount] = useState(1)
   // Page
@@ -178,10 +162,10 @@ export default function Guest() {
       }
     });
   };
-  // Load room list
+  // Load guest list
   const loadList = () => {
-    $list({pageSize:10,pageIndex}).then(({data,count}) => {
-      console.log(data)
+    $list({pageSize:10,pageIndex,guestName,resideStateId}).then(({data,count}) => {
+      // console.log(data)
       data = data.map((r) => {
         return {
           key: r.guestId,
@@ -206,20 +190,17 @@ export default function Guest() {
     });
   };
   useEffect(() => {
-    loadTypeList()  // load room type list data
     loadStateList()   // load room state list data
     loadList();   
   }, [pageIndex]);
   return (
     <>
       <div className="search">
-      <span>Type:</span>
-      <Select size='small' style={{width:'200px'}} options={typeList} defaultValue={0} onSelect={(value)=>{
-          setRoomTypeId(value)
-        }}></Select>
-      <span style={{marginLeft:'5px'}}>State:</span>
-        <Select size='small' style={{width:'200px'}} options={stateList} defaultValue={0} onSelect={(value)=>{
-          setRoomStateId(value)
+      <span>Guest Name:</span>
+      <Input value={guestName} onChange={(e)=>{setGuestName(e.target.value)}} size='small' style={{width:'200px'}}/>
+      <span style={{marginLeft:'5px'}}>Reside State:</span>
+      <Select size='small' style={{width:'200px'}} options={resideList} defaultValue={0} onSelect={(value)=>{
+          setResideStateId(value)
         }}></Select>
       <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={loadList}>Search</Button>
       <Button

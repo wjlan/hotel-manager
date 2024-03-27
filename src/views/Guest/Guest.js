@@ -81,7 +81,7 @@ export default function Guest() {
       width: "100px",
     },
     {
-      title: "Room Type Price",
+      title: "Room Price",
       dataIndex: "roomTypePrice",
       width: "80px",
     },

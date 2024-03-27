@@ -120,7 +120,7 @@ export default function Guest() {
       dataIndex: "resideStateName",
       width: "80px",
       render: (resideStateName) => (
-        <Tag color={resideStateName==='Checked out'?'lightgreen':'lightcoral'}>
+        <Tag color={resideStateName==='Checked Out'?'lightgreen':'lightcoral'}>
           {resideStateName}
         </Tag>
       )
@@ -131,18 +131,8 @@ export default function Guest() {
       dataIndex: "action",
       render: (ret) => {
         return (
-          ret.roomStateName==='入住'?null:
-          <>
-            <Button
-              size="small"
-              style={{ borderColor: "orange", color: "orange" }}
-              onClick={()=>{
-                edit(ret.roomId)
-              }}
-            >
-              Edit
-            </Button>
-            <Popconfirm
+          ret.resideStateName==='Checked Out'?
+          <Popconfirm
               title="Notion"
               description="Are you sure to delete"
               onConfirm={() => {
@@ -155,6 +145,18 @@ export default function Guest() {
                 Delete
               </Button>
             </Popconfirm>
+          :
+          <>
+            <Button
+              size="small"
+              style={{ borderColor: "orange", color: "orange" }}
+              onClick={()=>{
+                edit(ret.roomId)
+              }}
+            >
+              Edit
+            </Button>
+            <Button size="small" style={{marginLeft:'5px',borderColor:'lightseagreen',color:'lightseagreen'}}>Checkout</Button>
           </>
         )
       },

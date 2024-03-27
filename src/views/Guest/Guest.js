@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popconfirm, Pagination, Select, Tag } from "antd";
-import { $list, $del } from "../../api/roomApi";
+import { $list, $del } from "../../api/guestApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$listToUpdate as $stateList} from '../../api/stateApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
@@ -51,37 +51,77 @@ export default function Guest() {
   let [roomId,setRoomId] = useState(0)
   // check drawer open or not
   const [open, setOpen] = useState(false);
-  // room list data
-  let [roomList, setRoomList] = useState([]);
+  // guest list data
+  let [guestList, setGuestList] = useState([]);
   // table
   const columns = [
     {
+      title: "Name",
+      dataIndex: "guestName",
+      width: "80px",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      width: "100px",
+    },
+    {
+      title: "Identity Id",
+      dataIndex: "identityId",
+      width: "120px",
+    },
+    {
       title: "Room Id",
       dataIndex: "roomId",
-      width: "100px",
+      width: "80px",
     },
     {
       title: "Room Type",
       dataIndex: "roomTypeName",
-      width: "150px",
+      width: "100px",
     },
     {
-      title: "Roome Price",
+      title: "Room Type Price",
       dataIndex: "roomTypePrice",
-      width: "150px",
+      width: "80px",
     },
     {
       title: "Bed Number",
       dataIndex: "bedNum",
-      width: "150px",
+      width: "80px",
     },
     {
-      title: "Room State",
-      dataIndex: "roomStateName",
-      width: "150px",
-      render: (roomStateName) => (
-        <Tag color={roomStateName==='Empty'?'lightgreen':(roomStateName==='Maitenance'?'lightsalmon':'lightcoral')}>
-          {roomStateName}
+      title: "Reside Date",
+      dataIndex: "resideDate",
+      width: "100px",
+    },
+    {
+      title: "Leave Date",
+      dataIndex: "leaveDate",
+      width: "100px",
+    },
+    {
+      title: "Deposit",
+      dataIndex: "deposit",
+      width: "80px",
+    },
+    {
+      title: "Total Price",
+      dataIndex: "totalMoney",
+      width: "80px",
+    },
+    {
+      title: "Guest Number",
+      dataIndex: "guestNum",
+      width: "80px",
+    },
+    {
+      title: "Reside State",
+      dataIndex: "resideStateName",
+      width: "80px",
+      render: (resideStateName) => (
+        <Tag color={resideStateName==='Checked out'?'lightgreen':'lightcoral'}>
+          {resideStateName}
         </Tag>
       )
     },
@@ -138,18 +178,28 @@ export default function Guest() {
   };
   // Load room list
   const loadList = () => {
-    $list({roomTypeId,roomStateId,pageSize:10,pageIndex}).then(({data,count}) => {
+    $list({pageSize:10,pageIndex}).then(({data,count}) => {
+      console.log(data)
       data = data.map((r) => {
         return {
-          key: r.roomId,
+          key: r.guestId,
+          guestId:r.guestId,
+          identityId:r.identityId,
+          guestName:r.guestName,
+          phone:r.phone,
           roomId:r.roomId,
-          roomTypeName:r.roomType.roomTypeName,
-          roomTypePrice:r.roomType.roomTypePrice,
-          bedNum:r.roomType.bedNum,
-          roomStateName:r.roomState.roomStateName,
+          roomTypeName:r.room.roomType.roomTypeName,
+          roomTypePrice:r.room.roomType.roomTypePrice,
+          bedNum:r.room.roomType.bedNum,
+          resideDate:r.resideDate,
+          leaveDate:r.leaveDate,
+          deposit:r.deposit,
+          totalMoney:r.totalMoney,
+          guestNum:r.guestNum,
+          resideStateName:r.resideState.resideStateName
         };
       });
-      setRoomList(data);
+      setGuestList(data);
       setCount(count)
     });
   };
@@ -180,7 +230,7 @@ export default function Guest() {
         Add
       </Button>
       </div>
-      <Table size="small" dataSource={roomList} columns={columns} pagination={false} />
+      <Table size="small" dataSource={guestList} columns={columns} pagination={false} />
       <Pagination style={{marginTop:'5px'}} size='small' defaultCurrent={pageIndex} 
       total={count} pageSize={10} onChange={(page)=>{setPageIndex(page)}}/>
       {/* <AddRoom open={open} setOpen={setOpen} loadList={loadList} roomId={roomId} setRoomId={setRoomId}/> */}

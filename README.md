@@ -51,6 +51,7 @@ http://119.45.221.185:8003/
 
 ### Room Management
 * Add new room
+* Room photo upload
 * Edit room
 * Delete room
 * Filter and search room

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input, Select } from "antd";
-import { $add, $getOne, $update } from "../../api/roomApi";
+import { $add,$getOne,$update } from "../../api/guestApi";
 import {$list as $typeList} from '../../api/typeApi'
-import {$list as $stateList} from '../../api/stateApi'
+import {$list as $roomList} from '../../api/roomApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
-import ReactQuill from 'react-quill'
 
 export default function AddGuest({
   open,
@@ -15,8 +14,8 @@ export default function AddGuest({
 }) {
   // room type list
   let [typeList, setTypeList] = useState([]);
-  // room state list
-  let [stateList, setStateList] = useState([]);
+  // room list
+  let [roomList,setRoomList] = useState([])
   // load room type list 
   const loadTypeList = () => {
     $typeList().then((data) => {
@@ -29,16 +28,16 @@ export default function AddGuest({
       setTypeList(data);
     });
   };
-  // load room state list
-  const loadStateList = ()=>{
-    $stateList().then((data)=>{
+  // load room list
+  const loadRoomList = (roomTypeId)=>{
+    $roomList({roomTypeId,roomStateId:1,pageSize:99,guestId}).then(({data})=>{
       data = data.map((r) => {
         return {
-          value:r.roomStateId,
-          label:r.roomStateName
+          value:r.roomId,
+          label:r.roomId
         };
       });
-      setStateList(data);
+      setRoomList(data);
     })
   }
   // create a form object
@@ -47,7 +46,6 @@ export default function AddGuest({
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   useEffect(() => {
     loadTypeList()  // load room type list data
-    loadStateList()   // load room state list data
     if (guestId !== 0) {
       $getOne({guestId}).then((data) => {
         form.setFieldsValue(data);
@@ -162,23 +160,26 @@ export default function AddGuest({
             rules={[
               {
                 required: true,
-                message: "Please input room type",
+                message: "Please choose a room type",
               },
             ]}
           >
-            <Select size='small' style={{width:'200px'}} options={typeList}></Select>
+            <Select size='small' style={{width:'200px'}} options={typeList} onSelect={(roomTypeId)=>{
+              form.setFieldValue('roomId','')
+              loadRoomList(roomTypeId)
+            }}></Select>
           </Form.Item>
           <Form.Item
             label="Room"
-            name="roomTypeId"
+            name="roomId"
             rules={[
               {
                 required: true,
-                message: "Please input room type",
+                message: "Please choose a room",
               },
             ]}
           >
-            <Select size='small' style={{width:'200px'}} options={typeList}></Select>
+            <Select size='small' style={{width:'200px'}} options={roomList}></Select>
           </Form.Item>
           <Form.Item
             label="Reside Date"

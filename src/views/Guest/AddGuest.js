@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Drawer, Form, Input, Select } from "antd";
+import { Button, Drawer, Form, Input, Select, DatePicker } from "antd";
 import { $add,$getOne,$update } from "../../api/guestApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$list as $roomList} from '../../api/roomApi'
@@ -191,7 +191,7 @@ export default function AddGuest({
               },
             ]}
           >
-            <Input />
+            <DatePicker placeholder="Please input reside date" showTime  />
           </Form.Item>
           <Form.Item
             label="Deposit"

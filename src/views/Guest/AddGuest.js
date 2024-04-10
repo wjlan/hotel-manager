@@ -60,12 +60,12 @@ export default function AddGuest({
   };
   // form submit function
   const onFinish = (values) => {
-    if(roomId){
+    if(guestId){
       // edit
       $update(values).then(({success,message})=>{
         if(success){
           setNotiMsg({type:'success',description:message})
-          loadlist()  // load role list
+          loadlist()  
         }else{
           setNotiMsg({type:'error',description:message})
         }
@@ -75,8 +75,8 @@ export default function AddGuest({
       $add(values).then(({success, message}) => {
         if (success) {
           setNotiMsg({ type: "success", description: message });
-          clear(); // clear form
-          loadlist(); // load role list
+          clear(); 
+          loadlist(); 
         } else {
           setNotiMsg({type: "error", description: message});
         }

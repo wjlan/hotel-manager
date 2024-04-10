@@ -3,7 +3,7 @@ import { Table, Button, Popconfirm, Pagination, Select, Tag, Input } from "antd"
 import { $list, $del } from "../../api/guestApi";
 import { $list as $resideList } from '../../api/resideApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
-// import AddRoom from './AddRoom'
+import AddGuest from "./AddGuest";
 
 export default function Guest() {
   // reside state list
@@ -31,8 +31,8 @@ export default function Guest() {
   let [pageIndex,setPageIndex] = useState(1)
   // notification
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
-  // loginId editing status
-  let [roomId,setRoomId] = useState(0)
+  // guestId editing status
+  let [guestId,setGuestId] = useState(0)
   // check drawer open or not
   const [open, setOpen] = useState(false);
   // guest list data
@@ -216,7 +216,7 @@ export default function Guest() {
       <Table size="small" dataSource={guestList} columns={columns} pagination={false} />
       <Pagination style={{marginTop:'5px'}} size='small' defaultCurrent={pageIndex} 
       total={count} pageSize={10} onChange={(page)=>{setPageIndex(page)}}/>
-      {/* <AddRoom open={open} setOpen={setOpen} loadList={loadList} roomId={roomId} setRoomId={setRoomId}/> */}
+      <AddGuest open={open} setOpen={setOpen} loadList={loadList} guestId={guestId} setGuestId={setGuestId}/>
       <MyNotification notiMsg={notiMsg} />
     </>
   );

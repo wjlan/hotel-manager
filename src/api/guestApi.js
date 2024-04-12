@@ -30,3 +30,9 @@ export const $del = async (params)=>{
   return data
 }
 
+// guest checkout
+export const $checkout = async (params)=>{
+  let {data} = await axios.post('GuestRecord/Checkout',params)
+  return data
+}
+

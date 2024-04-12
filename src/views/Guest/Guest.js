@@ -140,7 +140,17 @@ export default function Guest() {
             >
               Edit
             </Button>
-            <Button size="small" style={{marginLeft:'5px',borderColor:'lightseagreen',color:'lightseagreen'}}>Checkout</Button>
+            <Button size="small" style={{marginLeft:'5px',borderColor:'lightseagreen',color:'lightseagreen'}}
+            onClick={()=>{
+              // checkout function
+              $checkout({guestId:ret.guestId}).then(ret=>{
+                setNotiMsg({
+                  type: "success", description: `Checked out! Total: ${ret.totalMoney}`
+                })
+                // reload list data
+                loadList()  
+              })
+            }}>Check Out</Button>
           </>
         )
       },

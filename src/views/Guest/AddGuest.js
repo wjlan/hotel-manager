@@ -4,6 +4,7 @@ import { $add,$getOne,$update } from "../../api/guestApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$list as $roomList} from '../../api/roomApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
+import dayjs from 'dayjs';
 
 export default function AddGuest({
   open,
@@ -44,14 +45,18 @@ export default function AddGuest({
   let [form] = Form.useForm();
   // notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
-  useEffect(() => {
+  useEffect(()=>{
     loadTypeList()  // load room type list data
-    if (guestId !== 0) {
-      $getOne({guestId}).then((data) => {
-        form.setFieldsValue(data);
-      });
+    if(guestId!==0){
+      $getOne({guestId}).then(data=>{
+        // reside date formatting
+        data.resideDate = dayjs(data.resideDate)
+        // rendering the room type selection
+        data.roomTypeId = data.room.roomTypeId
+        form.setFieldsValue(data)
+      })
     }
-  }, [guestId]);
+  },[guestId])
   // close drawer function
   const onClose = () => {
     clear(); // clear form

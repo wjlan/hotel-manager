@@ -120,7 +120,7 @@ export default function Guest() {
               title="Notion"
               description="Are you sure to delete"
               onConfirm={() => {
-                del(ret.roomId);
+                del(ret.guestId);
               }}
               okText="Yes"
               cancelText="No"
@@ -156,14 +156,14 @@ export default function Guest() {
       },
     },
   ];
-  // edit admin function
+  // edit guest function
   const edit = (guestId)=>{
     setOpen(true)  
     setGuestId(guestId)  
   }
-  // delete admin function
-  const del = (roomId) => {
-    $del({ roomId }).then(({ success, message }) => {
+  // delete guest function
+  const del = (guestId) => {
+    $del({ guestId }).then(({ success, message }) => {
       if (success) {
         setNotiMsg({ type: "success", description: message });
         loadList(); 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Popconfirm } from "antd";
-import { $list, $del } from "../../api/typeApi";
+import { $list,$del } from "../../api/typeApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import AddType from "./AddType";
 
@@ -14,10 +14,10 @@ export default function Type() {
   // room type list data
   let [typeList, setTypeList] = useState([]);
   useEffect(() => {
-    loadlist();
+    loadList();
   }, []);
   // Load room type list
-  const loadlist = () => {
+  const loadList = () => {
     $list().then((data) => {
       data = data.map((r) => {
         return {

@@ -135,7 +135,7 @@ export default function Guest() {
               size="small"
               style={{ borderColor: "orange", color: "orange" }}
               onClick={()=>{
-                edit(ret.roomId)
+                edit(ret.guestId)
               }}
             >
               Edit
@@ -147,9 +147,9 @@ export default function Guest() {
     },
   ];
   // edit admin function
-  const edit = (roomId)=>{
+  const edit = (guestId)=>{
     setOpen(true)  
-    setRoomId(roomId)  
+    setGuestId(guestId)  
   }
   // delete admin function
   const del = (roomId) => {

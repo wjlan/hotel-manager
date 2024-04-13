@@ -136,6 +136,10 @@ export default function () {
       case "guest":
         navigate("/layout/guest");
         break;
+      // Total Price
+      case "total":
+        navigate("/layout/total");
+        break;
       // if the submenu is exit, exit the system
       case 'exit':
         confirm({

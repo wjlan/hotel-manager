@@ -29,3 +29,9 @@ export const $update = async (params)=>{
   let {data} = await axios.post('RoomType/Update',params)
   return data
 }
+
+// Total type price
+export const $totalPrice = async ()=>{
+  let {data} = await axios.get('RoomType/TotalTypePrice')
+  return data
+}

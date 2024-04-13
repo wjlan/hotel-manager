@@ -13,6 +13,7 @@ import UpdatePwd from './views/Admin/UpdatePwd'
 import Type from './views/Type/Type'
 import Room from './views/Room/Room'
 import Guest from './views/Guest/Guest'
+import TotalPrice from './views/Type/TotalPrice'
 
 function App() {
   useEffect(()=>{
@@ -42,6 +43,7 @@ function App() {
           <Route path='type' element={<Type/>}/>
           <Route path='room' element={<Room/>}/>
           <Route path='guest' element={<Guest/>}/>
+          <Route path='total' element={<TotalPrice/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React,{useEffect} from 'react'
 import {notification} from 'antd'
 
 export default function MyNotification({notiMsg}) {
@@ -7,13 +7,13 @@ export default function MyNotification({notiMsg}) {
     // if type is valid, open the notification
     if(notiMsg.type){
       api[notiMsg.type]({
-        message: 'System notification',
-        description: notiMsg.description,
+        message:'System Notification',
+        description:notiMsg.description,
         duration:2,
         placement:'bottomRight'
       })
     }
-  }, [notiMsg])
+  },[notiMsg])
   return (
     <>
       {contextHolder}

@@ -19,7 +19,7 @@ import "./Layout.scss";
 export default function () {
   const navigate = useNavigate();
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
+    if (!sessionStorage.getItem("token")) {
       navigate("/");
     }
   }, []);
@@ -53,7 +53,7 @@ export default function () {
         },
         {
           key: "pwd",
-          label: "Password reset",
+          label: "Password Reset",
         },
         {
           key: "exit",
@@ -62,8 +62,8 @@ export default function () {
       ],
     },
   ];
-  // Menu on the left
-  const items2 = [
+    // Menu on the left
+  const itmes2 = [
     {
       key: "1",
       icon: <UserOutlined />,
@@ -83,7 +83,7 @@ export default function () {
       key: "2",
       icon: <VideoCameraOutlined />,
       label: "Room Management",
-      childre: [
+      children: [
         {
           key: "type",
           label: "Room Type Management",
@@ -94,7 +94,7 @@ export default function () {
         },
         {
           key: "total",
-          label: "Operational Statistics",
+          label: "Sales Statistics",
         },
       ],
     },
@@ -136,34 +136,34 @@ export default function () {
       case "guest":
         navigate("/layout/guest");
         break;
-      // Total Price
+      // Total Sales
       case "total":
         navigate("/layout/total");
         break;
-      // if the submenu is exit, exit the system
-      case 'exit':
+      // If the submenu is exit, exit the system
+      case "exit":
         confirm({
           title: "System Notification",
           icon: <ExclamationCircleFilled />,
           content: "Are you sure to exit?",
-          okText: 'Confirm',
-          cancelText: 'Cancel',
+          okText: "Confirm",
+          cancelText: "Cancel",
           onOk() {
             // clear session
             sessionStorage.clear();
             localStorage.clear();
             // switch to the login page
             navigate("/");
-          }
+          },
         });
-        break
+        break;
     }
   };
   // side layout collapsed status
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout className="layout">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider width={250} trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           {collapsed ? "WJ" : "Hotel Managerment System"}
         </div>
@@ -172,7 +172,7 @@ export default function () {
           theme="dark"
           mode="inline"
           selectedKeys={[current]}
-          items={items2}
+          items={itmes2}
         />
       </Sider>
       <Layout className="right">

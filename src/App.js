@@ -16,10 +16,10 @@ import Guest from './views/Guest/Guest'
 import TotalPrice from './views/Type/TotalPrice'
 
 function App() {
+  // create a redux dispatch
+  const dispatch = useDispatch()
+  let {setAdmin} = adminSlice.actions
   useEffect(()=>{
-    // create a redux dispatch
-    const dispatch = useDispatch()
-    let {setAdmin} = adminSlice.actions
     // check the login status
     if(sessionStorage.getItem('loginId')){
       // get login Id
@@ -51,3 +51,4 @@ function App() {
 }
 
 export default App;
+

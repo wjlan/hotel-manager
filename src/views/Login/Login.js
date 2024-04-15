@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
-import { useNavigate  } from "react-router-dom";
+import React,{useState,useEffect} from "react";
+import {useNavigate} from 'react-router-dom'
 import "./Login.scss";
-import { Button, Form, Input} from "antd";
+import { Button, Form, Input } from "antd";
 import MyNotification from "../../components/MyNotification/MyNotification";
-import {$login, $getOne} from '../../api/adminApi'; 
+import {$login,$getOne} from '../../api/adminApi'
 import {useDispatch} from 'react-redux'
 import {adminSlice} from '../../redux'
 export default function Login() {
@@ -15,36 +15,36 @@ export default function Login() {
   // Check if the login is successful
   useEffect(()=>{
     if(sessionStorage.getItem('token')){
-    navigate('/layout')
+      navigate('/layout')
     }
-  },[]) 
+  },[])
   
   // notification box status
-  let [notiMsg, setNotiMsg] = useState({type:'', description:''})
+  let [notiMsg,setNotiMsg] = useState({type:'',description:''})
   // form
   let [form] = Form.useForm()
   // submit callback function
   const onFinish = async (values) => {
-    let {message, success} = await $login(values)
+    let {message,success} = await $login(values)
     // login validation
-    if(success) {
+    if(success){
       // store loginId in session
       sessionStorage.setItem('loginId',values.loginId)
       // get account information based on loginId
       let admin = await $getOne({loginId:values.loginId})
       // store the current login account information into redux
       dispatch(setAdmin(admin))
-      setNotiMsg({type:'success', description:message})
+      setNotiMsg({type:'success',description:message})
       // directed to layout
       navigate('/layout')
     }else{
-      setNotiMsg({type:'error', description:message})
+      setNotiMsg({type:'error',description:message})
     }
   };
   return (
     <div className="login">
       <div className="content">
-      <h2>Hotel Management System</h2>
+        <h2>Hotel Management System</h2>
         <Form
           name="basic"
           form={form}
@@ -53,21 +53,21 @@ export default function Login() {
           }}
           wrapperCol={{
             span: 18,
-          }}      
+          }}
           initialValues={{
-            loginId: '',
-            loginPwd: ''
+            loginId:'',
+            loginPwd:''
           }}
           onFinish={onFinish}
           autoComplete="off"
-        >    
+        >
           <Form.Item
             label="Username"
             name="loginId"
             rules={[
               {
                 required: true,
-                message: "Please input your username!",
+                message: "Please input your username",
               },
             ]}
           >
@@ -80,7 +80,7 @@ export default function Login() {
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: "Please input your password",
               },
             ]}
           >
@@ -101,9 +101,8 @@ export default function Login() {
             }} style={{marginLeft:'10px'}}>Cancel</Button>
           </Form.Item>
         </Form>
-
       </div>
-      <MyNotification notiMsg={notiMsg} />     
+      <MyNotification notiMsg={notiMsg} />
     </div>
   );
 }

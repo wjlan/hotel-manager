@@ -6,7 +6,6 @@ export const $list = async ()=>{
   return data
 }
 
-
 // Room State list（no occupied state）
 export const $listToUpdate = async ()=>{
   let {data} = await axios.get('RoomState/ListToUpdate')

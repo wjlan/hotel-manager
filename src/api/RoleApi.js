@@ -1,12 +1,12 @@
-import axios from '../utils/request';
+import axios from '../utils/request'
 
 // Get role list
-export const $list = async () =>{
-  let {data} = await axios.get('Role/list')
+export const $list = async ()=>{
+  let {data} = await axios.get('Role/List')
   return data
 }
 
-// Get single one role 
+// Get single one role
 export const $getOne = async(params)=>{
   let {data} = await axios.get('Role/GetOne',{params})
   return data
@@ -14,13 +14,13 @@ export const $getOne = async(params)=>{
 
 // Add role
 export const $add = async (params)=>{
-  let{data} = await axios.post('Role/Add', params)
+  let {data} = await axios.post('Role/Add',params)
   return data
 }
 
 // Delete role
 export const $del = async (params)=>{
-  let{data} = await axios.post('Role/Delete', params)
+  let {data} = await axios.post('Role/Delete',params)
   return data
 }
 
@@ -29,5 +29,4 @@ export const $update = async (params)=>{
   let {data} = await axios.post('Role/Update',params)
   return data
 }
-
 

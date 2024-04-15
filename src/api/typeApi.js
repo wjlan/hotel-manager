@@ -14,13 +14,13 @@ export const $getOne = async(params)=>{
 
 // Add room type
 export const $add = async (params)=>{
-  let{data} = await axios.post('RoomType/Add', params)
+  let {data} = await axios.post('RoomType/Add',params)
   return data
 }
 
 // Delete room type
 export const $del = async (params)=>{
-  let{data} = await axios.post('RoomType/Delete', params)
+  let {data} = await axios.post('RoomType/Delete',params)
   return data
 }
 

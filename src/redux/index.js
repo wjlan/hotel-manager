@@ -1,8 +1,9 @@
 import {createSlice,configureStore} from '@reduxjs/toolkit'
 
+// 创建子模块
 export const adminSlice = createSlice({
   name:'adminSlice',
-  // initial status
+  // 初始化状态
   initialState:{
     admin:{
       id:'',
@@ -13,7 +14,7 @@ export const adminSlice = createSlice({
       roleName:''
     }
   },
-  
+  // 整合器
   reducers:{
     setAdmin(state, action){
       state.admin = {
@@ -24,7 +25,7 @@ export const adminSlice = createSlice({
 })
 
 
-// create store
+// 创建store，合并所有子模块
 const store = configureStore({
   reducer:{
     adminSlice:adminSlice.reducer

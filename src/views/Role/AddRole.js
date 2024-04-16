@@ -1,59 +1,53 @@
-import React, { useState, useEffect } from "react";
-import { Button, Drawer, Form, Input } from "antd";
-import { $add, $getOne, $update } from "../../api/RoleApi";
+import React,{useState,useEffect} from "react";
+import { Button, Drawer,Form, Input } from "antd";
+import { $add,$getOne,$update } from "../../api/RoleApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 
-export default function AddRole({
-  open,
-  setOpen,
-  loadlist,
-  roleId,
-  setRoleId,
-}) {
+export default function AddRole({open,setOpen,loadList,roleId,setRoleId}) {
   // create a form object
-  let [form] = Form.useForm();
+  let [form] = Form.useForm()
   // notification box status
-  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
-  useEffect(() => {
-    if (roleId !== 0) {
-      $getOne({ roleId }).then((data) => {
-        form.setFieldsValue(data);
-      });
+  let [notiMsg,setNotiMsg] = useState({type:'',description:''})
+  useEffect(()=>{
+    if(roleId!==0){
+      $getOne({roleId}).then(data=>{
+        form.setFieldsValue(data)
+      })
     }
-  }, [roleId]);
+  },[roleId])
   // close drawer function
   const onClose = () => {
-    clear(); // clear form
-    setRoleId(0); // Cancel editing status
-    setOpen(false); // close drawer
+    clear()  // clear form
+    setRoleId(0)  // Cancel editing status
+    setOpen(false);  // close drawer
   };
   // form submit function
   const onFinish = (values) => {
     if(roleId){
       $update(values).then(({success,message})=>{
         if(success){
-          setNotiMsg({type:'success',description:message})
-          loadlist()  // load role list
+          setNotiMsg({type:'success',description:'Edited Successfully'})
+          loadList()  // load role list
         }else{
-          setNotiMsg({type:'error',description:message})
+          setNotiMsg({type:'error',description:'Edit Error'})
         }
       })
     }else{
-      $add(values).then(({success, message}) => {
-        if (success) {
-          setNotiMsg({ type: "success", description: message });
-          clear(); // clear form
-          loadlist(); // load role list
-        } else {
-          setNotiMsg({type: "error", description: message});
+      $add(values).then(({success,message})=>{
+        if(success){
+          setNotiMsg({type:'success',description:'Added Successfully'})
+          clear()  // clear form
+          loadList()  // load role list
+        }else{
+          setNotiMsg({type:'error',description:'Add Error'})
         }
-      });
-    } 
+      })
+    }
   };
   // form clearance function
-  const clear = () => {
-    form.resetFields();
-  };
+  const clear = ()=>{
+    form.resetFields()
+  }
   return (
     <>
       <Drawer
@@ -81,7 +75,7 @@ export default function AddRole({
           <Form.Item
             label="Role Id"
             name="roleId"
-            hidden 
+            hidden
           >
             <Input />
           </Form.Item>

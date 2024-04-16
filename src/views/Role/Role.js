@@ -14,10 +14,10 @@ export default function Role() {
   // roleList data
   let [roleList, setRoleList] = useState([]);
   useEffect(() => {
-    loadlist();
+    loadList();
   }, []);
   // Load role list
-  const loadlist = () => {
+  const loadList = () => {
     $list().then((data) => {
       data = data.map((r) => {
         return {
@@ -38,12 +38,13 @@ export default function Role() {
     $del({ roleId }).then(({ success, message }) => {
       if (success) {
         setNotiMsg({ type: "success", description: message });
-        loadlist();
+        loadList(); 
       } else {
         setNotiMsg({ type: "error", description: message });
       }
     });
   };
+  // table
   const columns = [
     {
       title: "Role Id",
@@ -60,25 +61,19 @@ export default function Role() {
       key: "action",
       render: (ret) => (
         <>
-          <Button
-            size="small"
-            style={{ borderColor: "orange", color: "orange" }}
-            onClick={() => {
-              edit(ret.roleId);
-            }}
-          >
-            Edit
-          </Button>
+          <Button size="small" style={{borderColor:'orange',color:'orange'}} onClick={()=>{
+            edit(ret.roleId)
+          }}>Edit</Button>
           <Popconfirm
-            title="Notion"
-            description="Are you sure to delete"
-            onConfirm={() => {
-              del(ret.roleId);
-            }}
-            okText="Yes"
-            cancelText="No"
+          title="Notion"
+          description="Are you sure to delete?"
+          onConfirm={() => {
+            del(ret.roleId);
+          }}
+          okText="Confirm"
+          cancelText="Cancel"
           >
-            <Button style={{ marginLeft: "5px" }} danger size="small">
+            <Button style={{marginLeft:'5px'}} danger size="small">
               Delete
             </Button>
           </Popconfirm>
@@ -99,7 +94,7 @@ export default function Role() {
         </Button>
       </div>
       <Table size="small" dataSource={roleList} columns={columns} />
-      <AddRole open={open} setOpen={setOpen} loadlist={loadlist} roleId={roleId} setRoleId={setRoleId}/>
+      <AddRole open={open} setOpen={setOpen} loadList={loadList} roleId={roleId} setRoleId={setRoleId} />
       <MyNotification notiMsg={notiMsg} />
     </>
   );

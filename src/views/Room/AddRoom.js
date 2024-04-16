@@ -1,100 +1,112 @@
 import React, { useState, useEffect } from "react";
 import { Button, Drawer, Form, Input, Select } from "antd";
 import { $add, $getOne, $update } from "../../api/roomApi";
-import {$list as $typeList} from '../../api/typeApi'
-import {$list as $stateList} from '../../api/stateApi'
+import { $list as $typeList } from "../../api/typeApi";
+import { $listToUpdate as $stateList } from "../../api/stateApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
-import ReactQuill from 'react-quill'
+import ReactQuill from "react-quill";
 
-export default function AddRoom({
-  open,
-  setOpen,
-  loadlist,
-  roomId,
-  setRoomId,
-}) {
+export default function AddRoom({ open, setOpen, loadList, roomId, setRoomId }) {
   // room type list
-  let [typeList, setTypeList] = useState([]);
+  const [typeList, setTypeList] = useState([]);
   // room state list
-  let [stateList, setStateList] = useState([]);
-  // load room type list 
+  const [stateList, setStateList] = useState([]);
+  // create a form object
+  const [form] = Form.useForm();
+  // notification box status
+  const [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
+
+  // load room type list
   const loadTypeList = () => {
     $typeList().then((data) => {
       data = data.map((r) => {
         return {
-          value:r.roomTypeId,
-          label:r.roomTypeName
+          value: r.roomTypeId,
+          label: r.roomTypeName,
         };
       });
       setTypeList(data);
     });
   };
+
   // load room state list
-  const loadStateList = ()=>{
-    $stateList().then((data)=>{
+  const loadStateList = () => {
+    $stateList().then((data) => {
       data = data.map((r) => {
+        let englishLabel = ""; // English label for room state
+        switch (r.roomStateName) {
+          case "空闲":
+            englishLabel = "Empty";
+            break;
+          case "维修":
+            englishLabel = "Maintenance";
+            break;
+          default:
+            englishLabel = r.roomStateName; // Keep the original label if not translated
+        }
         return {
-          value:r.roomStateId,
-          label:r.roomStateName
+          value: r.roomStateId,
+          label: englishLabel,
         };
       });
       setStateList(data);
-    })
-  }
-  // create a form object
-  let [form] = Form.useForm();
-  // notification box status
-  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
+    });
+  };
+
   useEffect(() => {
-    loadTypeList()  // load room type list data
-    loadStateList()   // load room state list data
+    loadTypeList(); // load room type list data
+    loadStateList(); // load room state list data
     if (roomId !== 0) {
-      $getOne({roomId}).then((data) => {
+      $getOne({ roomId }).then((data) => {
         // copy roomId to id, because roomId can also be edited
-        data.id = data.roomId
+        data.id = data.roomId;
         form.setFieldsValue(data);
       });
     }
   }, [roomId]);
+
   // close drawer function
   const onClose = () => {
     clear(); // clear form
-    setRoomId(0); // Cancel editing status
+    setRoomId(0); // cancel editing status
     setOpen(false); // close drawer
   };
+
   // form submit function
   const onFinish = (values) => {
-    if(roomId){
+    if (roomId) {
       // edit
-      $update(values).then(({success,message})=>{
-        if(success){
-          setNotiMsg({type:'success',description:message})
-          loadlist()  // load role list
-        }else{
-          setNotiMsg({type:'error',description:message})
-        }
-      })
-    }else{
-      // add
-      $add(values).then(({success, message}) => {
+      $update(values).then(({ success, message }) => {
         if (success) {
-          setNotiMsg({ type: "success", description: message });
-          clear(); // clear form
-          loadlist(); // load role list
+          setNotiMsg({ type: "success", description: 'Edited Successfully' });
+          loadList(); // load role list
         } else {
-          setNotiMsg({type: "error", description: message});
+          setNotiMsg({ type: "error", description: 'Edit Error' });
         }
       });
-    } 
+    } else {
+      // add
+      $add(values).then(({ success, message }) => {
+        if (success) {
+          setNotiMsg({ type: "success", description: 'Added Successfully'});
+          clear(); // clear form
+          loadList(); // load role list
+        } else {
+          setNotiMsg({ type: "error", description: 'Add Error' });
+        }
+      });
+    }
   };
+
   // form clearance function
   const clear = () => {
     form.resetFields();
   };
+
   return (
     <>
       <Drawer
-        title={roomId?'Edit Room':'Add Room'}
+        title={roomId ? "Edit Room" : "Add Room"}
         width={600}
         placement="right"
         onClose={onClose}
@@ -115,11 +127,7 @@ export default function AddRoom({
           onFinish={onFinish}
           autoComplete="off"
         >
-          <Form.Item
-            label="Room Id"
-            name="id"
-            hidden
-          >
+          <Form.Item label="Id" name="id" hidden>
             <Input />
           </Form.Item>
           <Form.Item
@@ -160,7 +168,7 @@ export default function AddRoom({
               },
             ]}
           >
-            <Select size='small' style={{width:'200px'}} options={typeList}></Select>
+            <Select size="small" style={{ width: "200px" }} options={typeList} />
           </Form.Item>
           <Form.Item
             label="Room State"
@@ -172,7 +180,7 @@ export default function AddRoom({
               },
             ]}
           >
-            <Select size='small' style={{width:'200px'}} options={stateList}></Select>
+            <Select size="small" style={{ width: "200px" }} options={stateList} />
           </Form.Item>
           <Form.Item
             wrapperCol={{
@@ -181,7 +189,7 @@ export default function AddRoom({
             }}
           >
             <Button type="primary" htmlType="submit">
-              {roomId?'Edit':'Add'}
+              {roomId ? "Edit" : "Add"}
             </Button>
             <Button onClick={clear} style={{ marginLeft: "10px" }}>
               Cancel

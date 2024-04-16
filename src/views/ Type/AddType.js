@@ -1,32 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Button, Drawer, Form, Input } from "antd";
-import { $add, $getOne, $update } from "../../api/typeApi";
+import React,{useState,useEffect} from "react";
+import { Button, Drawer,Form, Input } from "antd";
+import { $add,$getOne,$update } from "../../api/typeApi";
 import MyNotification from "../../components/MyNotification/MyNotification";
 import ReactQuill from 'react-quill'
 
-export default function AddType({
-  open,
-  setOpen,
-  loadlist,
-  roomTypeId,
-  setRoomTypeId,
-}) {
+export default function AddType({open,setOpen,loadList,roomTypeId,setRoomTypeId}) {
   // create a form object
-  let [form] = Form.useForm();
+  let [form] = Form.useForm()
   // notification box status
-  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
-  useEffect(() => {
-    if (roomTypeId !== 0) {
-      $getOne({ roomTypeId }).then((data) => {
-        form.setFieldsValue(data);
-      });
+  let [notiMsg,setNotiMsg] = useState({type:'',description:''})
+  useEffect(()=>{
+    if(roomTypeId!==0){
+      $getOne({roomTypeId}).then(data=>{
+        form.setFieldsValue(data)
+      })
     }
-  }, [roomTypeId]);
+  },[roomTypeId])
   // close drawer function
   const onClose = () => {
-    clear(); // clear form
-    setRoomTypeId(0); // Cancel editing status
-    setOpen(false); // close drawer
+    clear()  // clear form
+    setRoomTypeId(0)  // cancel editing status
+    setOpen(false);  // close drawer
   };
   // form submit function
   const onFinish = (values) => {
@@ -35,28 +29,28 @@ export default function AddType({
       $update(values).then(({success,message})=>{
         if(success){
           setNotiMsg({type:'success',description:message})
-          loadlist()  // load room type list
+          loadList()  // load room type list
         }else{
           setNotiMsg({type:'error',description:message})
         }
       })
     }else{
       // Add 
-      $add(values).then(({success, message}) => {
-        if (success) {
-          setNotiMsg({ type: "success", description: message });
-          clear(); // clear form
-          loadlist(); // load room type list
-        } else {
-          setNotiMsg({type: "error", description: message});
+      $add(values).then(({success,message})=>{
+        if(success){
+          setNotiMsg({type:'success',description:message})
+          clear()  // clear form
+          loadList()  // load room type list
+        }else{
+          setNotiMsg({type:'error',description:message})
         }
-      });
-    } 
+      })
+    }
   };
   // form clearance function
-  const clear = () => {
-    form.resetFields();
-  };
+  const clear = ()=>{
+    form.resetFields()
+  }
   return (
     <>
       <Drawer
@@ -70,10 +64,10 @@ export default function AddType({
           name="basic"
           form={form}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 18,
+            span: 17,
           }}
           style={{
             maxWidth: 600,
@@ -84,7 +78,7 @@ export default function AddType({
           <Form.Item
             label="Room Type Id"
             name="roomTypeId"
-            hidden 
+            hidden
           >
             <Input />
           </Form.Item>

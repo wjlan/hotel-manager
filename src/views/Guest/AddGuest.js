@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Button, Drawer, Form, Input, Select, DatePicker } from "antd";
+import React,{useState,useEffect} from "react";
+import { Button, Drawer,Form, Input,Select,DatePicker } from "antd";
 import { $add,$getOne,$update } from "../../api/guestApi";
 import {$list as $typeList} from '../../api/typeApi'
 import {$list as $roomList} from '../../api/roomApi'
 import MyNotification from "../../components/MyNotification/MyNotification";
 import dayjs from 'dayjs';
 
-export default function AddGuest({
-  open,
-  setOpen,
-  loadlist,
-  guestId,
-  setGuestId,
-}) {
+
+export default function AddGuest({open,setOpen,loadList,guestId,setGuestId}) {
   // room type list
   let [typeList, setTypeList] = useState([]);
   // room list
@@ -42,9 +37,9 @@ export default function AddGuest({
     })
   }
   // create a form object
-  let [form] = Form.useForm();
+  let [form] = Form.useForm()
   // notification box status
-  let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
+  let [notiMsg,setNotiMsg] = useState({type:'',description:''})
   useEffect(()=>{
     loadTypeList()  // load room type list data
     if(guestId!==0){
@@ -59,9 +54,9 @@ export default function AddGuest({
   },[guestId])
   // close drawer function
   const onClose = () => {
-    clear(); // clear form
-    setGuestId(0); // Cancel editing status
-    setOpen(false); // close drawer
+    clear()  // clear form
+    setGuestId(0)  // cancel editing status
+    setOpen(false);  // close drawer
   };
   // form submit function
   const onFinish = (values) => {
@@ -69,29 +64,29 @@ export default function AddGuest({
       // edit
       $update(values).then(({success,message})=>{
         if(success){
-          setNotiMsg({type:'success',description:message})
-          loadlist()  
+          setNotiMsg({type:'success',description:'Edited Successfully'})
+          loadList()  
         }else{
-          setNotiMsg({type:'error',description:message})
+          setNotiMsg({type:'error',description:'Edit Error'})
         }
       })
     }else{
       // add
-      $add(values).then(({success, message}) => {
-        if (success) {
-          setNotiMsg({ type: "success", description: message });
-          clear(); 
-          loadlist(); 
-        } else {
-          setNotiMsg({type: "error", description: message});
+      $add(values).then(({success,message})=>{
+        if(success){
+          setNotiMsg({type:'success',description:'Added Successfully'})
+          clear()  
+          loadList()  
+        }else{
+          setNotiMsg({type:'error',description:'Add Error'})
         }
-      });
-    } 
+      })
+    }
   };
   // form clearance function
-  const clear = () => {
-    form.resetFields();
-  };
+  const clear = ()=>{
+    form.resetFields()
+  }
   return (
     <>
       <Drawer
@@ -105,10 +100,10 @@ export default function AddGuest({
           name="basic"
           form={form}
           labelCol={{
-            span: 5,
+            span: 7,
           }}
           wrapperCol={{
-            span: 18,
+            span: 15,
           }}
           style={{
             maxWidth: 600,
@@ -136,7 +131,7 @@ export default function AddGuest({
             <Input />
           </Form.Item>
           <Form.Item
-            label="Identity Id"
+            label="Identify Id"
             name="identityId"
             rules={[
               {
@@ -222,6 +217,7 @@ export default function AddGuest({
           >
             <Input />
           </Form.Item>
+          
           <Form.Item
             wrapperCol={{
               offset: 5,

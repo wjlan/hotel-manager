@@ -5,17 +5,14 @@ import MyNotification from "../../components/MyNotification/MyNotification";
 import AddType from "./AddType";
 
 export default function Type() {
-  // // room type Id editing status
+  // room type Id editing status
   let [roomTypeId,setRoomTypeId] = useState(0)
-  // notification box status
+  /// notification box status
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
   // check drawer open or not
   const [open, setOpen] = useState(false);
   // room type list data
   let [typeList, setTypeList] = useState([]);
-  useEffect(() => {
-    loadList();
-  }, []);
   // Load room type list
   const loadList = () => {
     $list().then((data) => {
@@ -30,25 +27,26 @@ export default function Type() {
   };
   // edit room type function
   const edit = (roomTypeId)=>{
-    setOpen(true)   // open drawer
+    setOpen(true)  // open drawer
     setRoomTypeId(roomTypeId)  // set roomTypeId to be editing status
   }
   // del room type function
   const del = (roomTypeId) => {
     $del({ roomTypeId }).then(({ success, message }) => {
       if (success) {
-        setNotiMsg({ type: "success", description: message });
+        setNotiMsg({ type: "success", description: 'Deleted Successfully' });
         loadList(); 
       } else {
-        setNotiMsg({ type: "error", description: message });
+        setNotiMsg({ type: "error", description: 'Delete Error' });
       }
     });
   };
+  // table
   const columns = [
     {
       title: "Room Type Id",
       dataIndex: "roomTypeId",
-      width: "100px",
+      width: "120px",
     },
     {
       title: "Room Type Name",
@@ -58,37 +56,31 @@ export default function Type() {
     {
       title: "Room Type Price",
       dataIndex: "roomTypePrice",
-      width: "200px",
+      width: "150px",
     },
     {
       title: "Bed Number",
       dataIndex: "bedNum",
-      width: "100px",
+      width: "120px",
     },
     {
       title: "Action",
       key: "action",
       render: (ret) => (
         <>
-          <Button
-            size="small"
-            style={{ borderColor: "orange", color: "orange" }}
-            onClick={() => {
-              edit(ret.roomTypeId);
-            }}
-          >
-            Edit
-          </Button>
+          <Button size="small" style={{borderColor:'orange',color:'orange'}} onClick={()=>{
+            edit(ret.roomTypeId)
+          }}>Edit</Button>
           <Popconfirm
-            title="Notion"
-            description="Are you sure to delete"
-            onConfirm={() => {
-              del(ret.roomTypeId);
-            }}
-            okText="Yes"
-            cancelText="No"
+          title="Notion"
+          description="Are you sure to delete?"
+          onConfirm={() => {
+            del(ret.roomTypeId);
+          }}
+          okText="Confirm"
+          cancelText="Cancel"
           >
-            <Button style={{ marginLeft: "5px" }} danger size="small">
+            <Button style={{marginLeft:'5px'}} danger size="small">
               Delete
             </Button>
           </Popconfirm>
@@ -96,6 +88,9 @@ export default function Type() {
       ),
     },
   ];
+  useEffect(() => {
+    loadList();  
+  }, []);
   return (
     <>
       <div className="search">

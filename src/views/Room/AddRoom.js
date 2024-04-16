@@ -116,10 +116,10 @@ export default function AddRoom({ open, setOpen, loadList, roomId, setRoomId }) 
           name="basic"
           form={form}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 18,
+            span: 17,
           }}
           style={{
             maxWidth: 600,

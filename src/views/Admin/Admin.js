@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Table, Button, Popconfirm, Pagination, Select } from "antd";
-import { $list, $del } from "../../api/adminApi";
-import { $list as $roleList } from '../../api/RoleApi'
-import AddAdmin from "./AddAdmin";
+import React,{useState,useEffect} from 'react'
+import {Table,Button,Popconfirm,Pagination,Select} from 'antd'
+import {$list,$del} from '../../api/adminApi'
+import {$list as $roleList} from '../../api/RoleApi'
+import AddAdmin from './AddAdmin';
 import MyNotification from "../../components/MyNotification/MyNotification";
 import {baseURL} from '../../config'
 
 export default function Admin() {
   // role list
   let [roleList, setRoleList] = useState([]);
-  // load role list 
+  // load role list
   const loadRoleList = () => {
     $roleList().then((data) => {
       data = data.map((r) => {
@@ -26,7 +26,7 @@ export default function Admin() {
   let [roleId,setRoleId] = useState(0)
   // count data rows
   let [count,setCount] = useState(1)
-  // Page
+  // page
   let [pageIndex,setPageIndex] = useState(1)
   // notification
   let [notiMsg, setNotiMsg] = useState({ type: "", description: "" });
@@ -73,34 +73,28 @@ export default function Admin() {
     },
     {
       title: "Action",
-      dataIndex: "action",
+      key: "action",
       render: (ret) => (
         <>
-          <Button
-            size="small"
-            style={{ borderColor: "orange", color: "orange" }}
-            onClick={()=>{
-              edit(ret.loginId)
-            }}
-          >
-            Edit
-          </Button>
+          <Button size="small" style={{borderColor:'orange',color:'orange'}} onClick={()=>{
+            edit(ret.loginId)
+          }}>Edit</Button>
           <Popconfirm
-            title="Notion"
-            description="Are you sure to delete"
-            onConfirm={() => {
-              del(ret.id, ret.photo);
-            }}
-            okText="Yes"
-            cancelText="No"
+          title="Notion"
+          description="Are you sure to delete?"
+          onConfirm={() => {
+            del(ret.id,ret.photo);
+          }}
+          okText="Yes"
+          cancelText="No"
           >
-            <Button style={{ marginLeft: "5px" }} danger size="small">
+            <Button style={{marginLeft:'5px'}} danger size="small">
               Delete
             </Button>
           </Popconfirm>
         </>
       ),
-    },
+    }
   ];
   // edit admin function
   const edit = (loginId)=>{
@@ -111,17 +105,16 @@ export default function Admin() {
   const del = (id,photo) => {
     $del({ id,photo }).then(({ success, message }) => {
       if (success) {
-        setNotiMsg({ type: "success", description: message });
+        setNotiMsg({ type: "success", description: 'Deleted Successfully' });
         loadList(); 
       } else {
-        setNotiMsg({ type: "error", description: message });
+        setNotiMsg({ type: "error", description: 'Delete Error' });
       }
     });
   };
   // Load admin list
   const loadList = () => {
-    $list({roleId,pageSize:8,pageIndex}).then(({ data, count }) => {
-      // console.log(data);
+    $list({roleId,pageSize:8,pageIndex}).then(({data,count}) => {
       data = data.map((r) => {
         return {
           ...r,
@@ -134,26 +127,26 @@ export default function Admin() {
     });
   };
   useEffect(() => {
-    loadRoleList() // load role list data
-    loadList();  // load list data
+    loadRoleList()  // load role list data
+    loadList();   // load list data
   }, [pageIndex]);
   return (
     <>
       <div className="search">
-      <span>Role：</span>
-      <Select size='small' style={{width:'200px'}} options={roleList} defaultValue={0} onSelect={(value)=>{
+        <span>Role:</span>
+        <Select size='small' style={{width:'200px'}} options={roleList} defaultValue={0} onSelect={(value)=>{
           setRoleId(value)
         }}></Select>
-      <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={()=>{loadList()}}>Search</Button>
-      <Button
-        style={{marginLeft:'5px'}}
-        size="small"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Add
-      </Button>
+        <Button type="primary" style={{marginLeft:'5px'}} size='small' onClick={()=>{loadList()}}>Search</Button>
+        <Button
+          style={{marginLeft:'5px'}}
+          size="small"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Add
+        </Button>
       </div>
       <Table size="small" dataSource={adminList} columns={columns} pagination={false} />
       <Pagination style={{marginTop:'5px'}} size='small' defaultCurrent={pageIndex} 
@@ -161,5 +154,5 @@ export default function Admin() {
       <AddAdmin open={open} setOpen={setOpen} loadList={loadList} loginId={loginId} setLoginId={setLoginId} />
       <MyNotification notiMsg={notiMsg} />
     </>
-  );
+  )
 }

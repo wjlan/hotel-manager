@@ -8,7 +8,7 @@ import UploadImg from "./UploadImg";
 export default function AddAdmin({
   open,
   setOpen,
-  loadlist,
+  loadList,
   loginId,
   setLoginId,
 }) {
@@ -33,38 +33,40 @@ export default function AddAdmin({
   // close drawer function
   const onClose = () => {
     clear(); // clear form
-    setLoginId(0); // Cancel editing status
+    setLoginId(0)  // cancel editing status
     setOpen(false); // close drawer
   };
   // form submit function
   const onFinish = (values) => {
-    if(loginId){
+    if (loginId) {
+      // edit
       $update(values).then(({success,message})=>{
         if(success){
-          setNotiMsg({type:'success',description:message})
-          loadlist()  // load role list
+          setNotiMsg({type:'success',description:'Edited Successfully'})
+          loadList()  // load role list
         }else{
-          setNotiMsg({type:'error',description:message})
+          setNotiMsg({type:'error',description:'Edit Error'})
         }
       })
-    }else{
-      $add(values).then(({success, message}) => {
+    } else {
+      // add
+      $add(values).then(({ success, message }) => {
         if (success) {
-          setNotiMsg({ type: "success", description: message });
+          setNotiMsg({ type: "success", description: 'Added Successfully' });
           clear(); // clear form
-          loadlist(); // load role list
+          loadList(); // load role list
         } else {
-          setNotiMsg({type: "error", description: message});
+          setNotiMsg({ type: "error", description: 'Add Error' });
         }
       });
-    } 
+    }
   };
   // form clearance function
   const clear = () => {
-    form.resetFields();
+    form.resetFields()
   };
   useEffect(() => {
-    loadRoleList(); //load role list
+    loadRoleList(); // load role list
     if(loginId!==0){
       $getOne({loginId}).then(data=>{
         form.setFieldsValue(data)
@@ -74,7 +76,7 @@ export default function AddAdmin({
   return (
     <>
       <Drawer
-        title={loginId?'Edit Admin Account':'Add Admin Account'}
+        title={loginId ? "Edit Admin Account" : "Add Admin Account"}
         width={500}
         placement="right"
         onClose={onClose}
@@ -84,7 +86,7 @@ export default function AddAdmin({
           name="basic"
           form={form}
           labelCol={{
-            span: 5,
+            span: 4,
           }}
           wrapperCol={{
             span: 18,
@@ -95,11 +97,7 @@ export default function AddAdmin({
           onFinish={onFinish}
           autoComplete="off"
         >
-          <Form.Item
-            label="Id"
-            name="id"
-            hidden 
-          >
+          <Form.Item label="Id" name="id" hidden>
             <Input />
           </Form.Item>
           <Form.Item
@@ -108,7 +106,7 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please input Login Id",
+                message: "Please Input login Id",
               },
             ]}
             hidden={loginId}
@@ -121,7 +119,7 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please input Login Password",
+                message: "Please input login password",
               },
             ]}
             hidden={loginId}
@@ -134,7 +132,7 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please input Login Name",
+                message: "Please input name",
               },
             ]}
           >
@@ -146,7 +144,7 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please input Phone",
+                message: "Please input phone number",
               },
             ]}
           >
@@ -158,7 +156,7 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please choose Photo",
+                message: "Please choose a photo",
               },
             ]}
           >
@@ -170,7 +168,7 @@ export default function AddAdmin({
             rules={[
               {
                 required: true,
-                message: "Please input Role",
+                message: "Please input role",
               },
             ]}
           >
@@ -183,7 +181,7 @@ export default function AddAdmin({
             }}
           >
             <Button type="primary" htmlType="submit">
-              {loginId?'Edit':'Add'}
+              {loginId ? "Edit" : "Add"}
             </Button>
             <Button onClick={clear} style={{ marginLeft: "10px" }}>
               Cancel
